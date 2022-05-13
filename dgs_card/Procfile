@@ -1,1 +1,1 @@
-web: python dgs_card/manage.py runserver 0.0.0.0:$PORT
+web: gunicorn dgs_card.wsgi
