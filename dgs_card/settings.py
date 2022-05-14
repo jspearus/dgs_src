@@ -21,13 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'grkb2t18&mt%aqe+5a(74&x*y=@*oi32^4v*yy$@f(3snd3)ta'
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY', 'grkb2t18&mt%aqe+5a(74&x*y=@*oi32^4v*yy$@f(3snd3)ta')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -42,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses',
+    'accounts',
 ]
 
 MIDDLEWARE = [

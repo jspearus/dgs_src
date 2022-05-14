@@ -19,3 +19,9 @@ def sign_up_page(request):
     title = "SIGNUP"
     context = {"title": title}
     return render(request, "signup.html", context)
+
+
+def settings_page(request):
+    title = "settings"
+    context = {"title": title}
+    return render(request, "settings.html", context)
