@@ -11,16 +11,6 @@ def home_page(request):
     return render(request, "home.html", context)
 
 
-def login_page(request):
-    if request.method == "POST":
-        title = "LOGIN Sucsessful"
-        context = {"title": title}
-        return render(request, "home.html", context)
-    title = "LOGIN"
-    context = {"title": title}
-    return render(request, "login.html", context)
-
-
 def sign_up_page(request):
     if request.method == "POST":
         title = "SIGNUP Sucsessful"
