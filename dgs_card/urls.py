@@ -26,8 +26,8 @@ from .views import (
 
 urlpatterns = [
     path('', home_page),
-    path('favicon.ico', RedirectView.as_view(
-        url=staticfiles_storage.url('img/favicon.ico'))),
+    # path('favicon.ico', RedirectView.as_view(
+    #     url=staticfiles_storage.url('img/favicon.ico'))),
     path('admin/', admin.site.urls),
     path('', include("django.contrib.auth.urls")),  # new
     path('accounts/', include("accounts.urls")),
