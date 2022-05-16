@@ -7,6 +7,8 @@ from django.shortcuts import render
 
 from dgs_card.views import home_page
 
+from .forms import ChangePasswordForm
+
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
