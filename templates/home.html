@@ -4,6 +4,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+  {% csrf_token %}
   Hi {{ user.username }}!
 {% else %}
   <p>You are not logged in</p>
