@@ -6,10 +6,10 @@ Disc Golf Scorecard app With Django web framework
 
     git push heroku master
 
-# command to migrate changes
-
-    heroku run python manage.py migrate
-
 # command to make migrations
 
     heroku run python manage.py makemigrations
+
+# command to migrate changes
+
+    heroku run python manage.py migrate
