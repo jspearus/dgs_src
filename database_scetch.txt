@@ -1,0 +1,23 @@
+courses: 
+    course_name- 
+        hole_number-
+        hole_sub-
+        par-
+        distance- 
+
+accounts:
+    user_id -
+    game_id-
+    savedGames:
+        course_name-
+            hole_number-
+            hole_sub-
+            par-
+            diatance-
+            average_throws-
+
+savedGames:
+    user_id - 
+    save_game_name:
+    course_name:
+        holes: # 
