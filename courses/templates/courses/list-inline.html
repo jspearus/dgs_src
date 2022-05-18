@@ -1,0 +1,13 @@
+
+<div class='col-12 col-md-6 mx-auto'>
+    <div class='card'>
+        <div class='card-body'>
+            <h5 class='card-title'>{{blog_post.title }}</h5>
+            <p class='card-text'>
+                <small class='text-muted'>{{ blog_post.publish_date }}</small>
+        
+                    {{ blog_post.content|linebreaks}}
+            </p>
+        </div>
+    </div>
+</div>

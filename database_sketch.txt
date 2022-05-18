@@ -1,0 +1,27 @@
+courses: 
+    park_name- 
+    hole_number-
+    hole_sub-
+    basket-
+    tee-
+    par-
+    distance- 
+
+accounts:
+    user_id -
+    game_id-
+    savedGames:
+        save_game_name-
+        date_played-
+        card_name-
+            hole_number-
+            hole_sub-
+            par-
+            diatance-
+            average_throws-
+
+scoreCards:
+    card_name-
+    date_last_played-
+    park_name-
+        holes- # 

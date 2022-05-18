@@ -6,7 +6,36 @@
 {% if user.is_authenticated %}
   {% csrf_token %}
   Hi {{ user.username }}!
+  {% comment %} Code here {% endcomment %}
+  <!-- Creates a list of Courses  -->
+  <div class='row'><h2>Courses</h2></div>
+<div class='row'>
+  <ul class="list-group list-group-flush" id="cards">
+  {% for course in course_list %}
+      <li><h3>{{course}}</h3></li>
+  {% endfor %}
+</ul>
+</div>
+<!-- End of Creates a list of blank score card templates  -->
+  <div align="right" >
+    <a href="/games" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">View Games</a>
+  </div>
+  <br /><br /><br /><br /><br />
+  {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
+    <div align="right" >
+      <a href="/cards" class="btn btn-primary btn-lg " 
+      tabindex="-1" role="button" aria-disabled="true">New Game</a>
+    </div>
+  {% comment %} {% endif %} {% endcomment %}
+  {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
+  <br /><br />
+    <div align="right" >
+      <a href="/newcard" class="btn btn-primary btn-lg " 
+      tabindex="-1" role="button" aria-disabled="true">Continue Game</a>
+    </div>
+  {% comment %} {% endif %}} {% endcomment %}
 {% else %}
-  <p>You are not logged in</p>
+    <p>You are not logged in</p>
 {% endif %}
 {% endblock %}

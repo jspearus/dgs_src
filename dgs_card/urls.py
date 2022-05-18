@@ -10,19 +10,18 @@ from .views import (
     sign_up_page,
     settings_page,
 )
-
-from courses.views import (
-    create_hole_view,
+from courses.views import(
+    course_list_view,
 )
-
 urlpatterns = [
-    path('', home_page),
+    path('', course_list_view),
     # path('favicon.ico', RedirectView.as_view(
     #     url=staticfiles_storage.url('img/favicon.ico'))),
     path('admin/', admin.site.urls),
-    path('create/', create_hole_view),
     path('', include("django.contrib.auth.urls")),  # new
     path('accounts/', include("accounts.urls")),
+    path('', include("scorecards.urls")),
+    path('', include("courses.urls")),
     path('settings/', settings_page),
 
 ]
