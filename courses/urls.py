@@ -6,10 +6,13 @@ from django.views.generic.base import RedirectView
 from .views import (
     create_hole_view,
     delete_hole_view,
+    card_list_view,
+
 )
 
 
 urlpatterns = [
     path('create/', create_hole_view),
     path('deletecourse/', delete_hole_view),
+    path('newgame/', card_list_view),
 ]

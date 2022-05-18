@@ -5,6 +5,7 @@ from django.views.generic.base import RedirectView
 
 from .views import (
     create_scorcard_view,
+
 )
 
 

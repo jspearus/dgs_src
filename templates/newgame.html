@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Creates a list of Courses  -->
+<div class='row'><h2>Courses</h2></div>
+<div class='row'>
+  <ul class="list-group list-group-flush" id="cards">
+  {% for course in course_list %}
+      <li class="list-group-item"><a href="/cards"><h3>  {{course}}</h3></a</li>
+  {% endfor %}
+</ul>
+</div>
+<div align="right">
+  <a href="/" class="btn btn-primary btn-lg " 
+  tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+</div>
+<!-- End of Creates a list of blank score card templates  -->
+{% endblock %}
