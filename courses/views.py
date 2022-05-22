@@ -25,7 +25,7 @@ def card_list_view(request):
 @login_required
 def course_detail_view(request, name):
     # queryset -> list of python objects
-    qs = HoleCreater.objects.filter(parkName__park_name=name)
+    qs = HoleCreater.objects.filter(parkName=name)
     template_name = 'courses/park-detail.html'
     context = {'course_list': qs, 'name': name}
     return render(request, template_name, context)
@@ -47,6 +47,17 @@ def course_list_view(request):
 
 @login_required
 def create_park_view(request):
+    if request.method == 'POST':
+        form = ParkCreateModelForm(request.POST)
+        name = form['park_name'].value()
+        num = int(form['num_holes'].value())
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+        for x in range(num):
+            record = HoleCreater.objects.create(
+                parkName=name, holeNumber=x+1
+            )
     form = ParkCreateModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False)
