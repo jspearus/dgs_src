@@ -27,8 +27,8 @@ class HoleCreater(models.Model):
     parkName = models.ForeignKey(
         ParkCreator('park_name'), on_delete=models.CASCADE)
     holeNumber = models.IntegerField()
-    holeSub = models.CharField(max_length=1, default='A')
-    basket = models.CharField(max_length=10, default='A')
+    holeSub = models.CharField(max_length=1, blank=True)
+    basket = models.CharField(max_length=10, blank=True)
     tee = models.CharField(max_length=10, default='White')
     par = models.IntegerField()
     distance = models.IntegerField()

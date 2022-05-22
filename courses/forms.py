@@ -28,4 +28,4 @@ class HoleCreateModelForm(forms.ModelForm):
     class Meta:
         model = HoleCreater
         fields = ['parkName', 'holeNumber',
-                  'basket', 'tee', 'holeSub', 'par', 'distance']
+                  'basket', 'tee', 'holeSub', 'distance', 'par']
