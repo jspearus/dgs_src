@@ -50,7 +50,7 @@ def create_park_view(request):
         obj = form.save(commit=False)
         obj.save()
         form = HoleCreateModelForm()
-    template_name = 'courses/form.html'
+    template_name = 'courses/parkform.html'
     context = {'form': form}
     return render(request, template_name, context)
 
