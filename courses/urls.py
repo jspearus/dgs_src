@@ -8,7 +8,7 @@ from .views import (
     course_detail_view,
     create_hole_view,
     delete_hole_view,
-    card_list_view,
+    course_list_view,
 
 )
 
@@ -17,6 +17,6 @@ urlpatterns = [
     path('create/', create_hole_view),
     path('newpark/', create_park_view),
     path('deletecourse/', delete_hole_view),
-    path('park/', card_list_view),
+    path('park/', course_list_view),
     path('park-detail/<str:name>', course_detail_view),
 ]
