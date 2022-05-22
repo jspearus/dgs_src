@@ -1,6 +1,11 @@
 from django import forms
 
-from .models import HoleCreater
+from .models import ParkCreator, HoleCreater
+
+
+class ParkCreateForm(forms.Form):
+    park_name = forms.CharField(max_length=140)
+    num_holes = forms.IntegerField()
 
 
 class HoleCreateForm(forms.Form):
@@ -11,6 +16,12 @@ class HoleCreateForm(forms.Form):
     tee = forms.CharField(max_length=10)
     par = forms.IntegerField()
     distance = forms.IntegerField()
+
+
+class ParkCreateModelForm(forms.ModelForm):
+    class Meta:
+        model = ParkCreator
+        fields = ['park_name', 'num_holes']
 
 
 class HoleCreateModelForm(forms.ModelForm):

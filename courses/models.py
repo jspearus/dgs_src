@@ -13,8 +13,19 @@ class CourseManager(models.Manager):
         return CourseQuerySet(self.model, using=self._db)
 
 
+class ParkCreator(models.Model):
+    park_name = models.CharField(
+        max_length=140, unique=True, blank=False, null=False)
+    num_holes = models.IntegerField()
+
+    # used to declare what is shown in form dropdown menus
+    def __str__(self):
+        return self.park_name
+
+
 class HoleCreater(models.Model):
-    parkName = models.CharField(max_length=140)
+    parkName = models.ForeignKey(
+        ParkCreator('park_name'), on_delete=models.CASCADE)
     holeNumber = models.IntegerField()
     holeSub = models.CharField(max_length=1, default='A')
     basket = models.CharField(max_length=10, default='A')

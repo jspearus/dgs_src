@@ -10,32 +10,13 @@
     {% comment %} {{ form.as_p }} {% endcomment %}
     <div class="form-group">
         <label> Park Name </label>
-        {{ form.parkName}}
+        {{ form.park_name }}
     </div>
     <div class="form-group">
-        <label> Hole Number </label>
-        {{ form.holeNumber }}
+        <label> # of Holes </label>
+        {{ form.num_holes }}
     </div>
-    <div class="form-group">
-        <label> Hole Sub Number </label>
-        {{ form.holeSub }}
-    </div>
-    <div class="form-group">
-        <label> Basket </label>
-        {{ form.basket }}
-    </div>
-    <div class="form-group">
-        <label> Tee </label>
-        {{ form.tee }}
-    </div>
-    <div class="form-group">
-        <label> Par</label>
-        {{ form.par }}
-    </div>
-    <div class="form-group">
-        <label> Distance </label>
-        {{ form.distance }}
-    </div>
+    
     <button type="submit">Send</button>
 </form>
 <div align="right">

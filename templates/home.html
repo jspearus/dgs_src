@@ -8,18 +8,18 @@
   Hi {{ user.username }}!
   {% comment %} Code here {% endcomment %}
   <!-- Creates a list of Courses  -->
-  <div class='row'><h2>Courses</h2></div>
+  <div class='row'><h2>Recent Gamse</h2></div>
 <div class='row'>
   <ul class="list-group list-group-flush" id="cards">
   {% for course in course_list %}
-      <li class="list-group-item"><h3>  {{course}}</h3></a</li>
+      <li class="list-group-item"><h3>  {{course.park_name}}</h3></a</li>
   {% endfor %}
 </ul>
 </div>
 <!-- End of Creates a list of blank score card templates  -->
   <div align="right" >
-    <a href="/newgame" class="btn btn-primary btn-lg " 
-    tabindex="-1" role="button" aria-disabled="true">View Games</a>
+    <a href="/park" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">View Courses</a>
   </div>
   <br /><br /><br /><br /><br />
   {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}

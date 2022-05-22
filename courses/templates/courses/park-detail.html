@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Creates a list of Courses  -->
+<div class='row'><h2>Holes</h2></div>
+<div class='row'>
+  <ul class="list-group list-group-flush" id="cards">
+    <li class="list-group-item"><h3>  {{name}}</h3></li>
+    {% for course in course_list %}
+        <li class="list-group-item"><h5> {{course.holeNumber}}{{course.holeSub}} : {{course.basket}} - {{course.par}}: {{course.distance}}</h5></li>
+    {% endfor %}
+</ul>
+</div>
+<div align="right">
+  <a href="/park" class="btn btn-primary btn-lg " 
+  tabindex="-1" role="button" aria-disabled="true">Back to Parks</a>
+</div>
+<!-- End of Creates a list of blank score card templates  -->
+{% endblock %}
