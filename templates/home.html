@@ -5,14 +5,14 @@
 {% block content %}
 {% if user.is_authenticated %}
   {% csrf_token %}
-  Hi {{ user.username }}!
+  <h1 class='text-light'>Hi {{ user.username }} !</h1>
   {% comment %} Code here {% endcomment %}
   <!-- Creates a list of Courses  -->
-  <div class='row'><h2>Recent Gamse</h2></div>
+  <div class='row text-light'><h3>Recent Gamse</h3></div>
 <div class='row'>
   <ul class="list-group list-group-flush" id="cards">
   {% for course in course_list %}
-      <li class="list-group-item"><h3>  {{course.park_name}}</h3></a</li>
+      <li class="list-group-item bg-secondary text-light"><h3>  {{course.park_name}}</h3></a</li>
   {% endfor %}
 </ul>
 </div>

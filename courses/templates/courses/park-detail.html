@@ -3,12 +3,12 @@
 
 {% block content %}
 <!-- Creates a list of Courses  -->
-<div class='row'><h2>Holes</h2></div>
+<div class='row text-light'><h2>Holes</h2></div>
 <div class='row'>
   <ul class="list-group list-group-flush" id="cards">
-    <li class="list-group-item"><h3>  {{name}}</h3></li>
+    <li class="list-group-item bg-secondarytext-light"><h3>  {{name}}</h3></li>
     {% for course in course_list %}
-        <li class="list-group-item"><h5> {{course.holeNumber}}{{course.holeSub}} : {{course.basket}} - {{course.par}}: {{course.distance}}</h5></li>
+        <li class="list-group-item bg-secondary text-light"><h5> {{course.holeNumber}}{{course.holeSub}} : {{course.basket}} - {{course.par}}: {{course.distance}}</h5></li>
     {% endfor %}
 </ul>
 </div>

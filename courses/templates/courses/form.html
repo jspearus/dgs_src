@@ -6,41 +6,41 @@
         <h1> {{title}} </h1>
     {%endif%}
 <form method="POST" action="." enctype='multipart/form-data'> {% csrf_token %}
-    <h1> Add Hole </h1>
+    <h1 class='text-light'> Add Hole </h1>
     {% comment %} {{ form.as_p }} {% endcomment %}
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Park Name </label>
         {{ form.parkName}}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Hole Number </label>
         {{ form.holeNumber }}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Hole Sub Number </label>
         {{ form.holeSub }}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Basket </label>
         {{ form.basket }}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Tee </label>
         {{ form.tee }}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Distance </label>
         {{ form.distance }}
     </div>
-    <div class="form-group">
+    <div class="form-group text-light">
         <label> Par</label>
         {{ form.par }}
     </div>
     <button type="submit">Send</button>
 </form>
 <div align="right">
-    <a href="/" class="btn btn-primary btn-lg " 
-    tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+    <a href="/settings" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">Back to Settings</a>
 </div>
 
 {% endblock %}
