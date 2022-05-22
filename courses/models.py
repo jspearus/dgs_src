@@ -29,6 +29,6 @@ class HoleCreater(models.Model):
     holeNumber = models.IntegerField()
     holeSub = models.CharField(max_length=1, default='A')
     basket = models.CharField(max_length=10, default='A')
-    tee = models.CharField(max_length=10, default='Red')
+    tee = models.CharField(max_length=10, default='White')
     par = models.IntegerField()
     distance = models.IntegerField()
