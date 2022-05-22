@@ -11,10 +11,10 @@ from .views import (
     settings_page,
 )
 from courses.views import(
-    course_list_view,
+    card_list_view,
 )
 urlpatterns = [
-    path('', course_list_view),
+    path('', card_list_view),
     # path('favicon.ico', RedirectView.as_view(
     #     url=staticfiles_storage.url('img/apple-touch-icon.ico'))),
     path('admin/', admin.site.urls),

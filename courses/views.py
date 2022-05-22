@@ -9,6 +9,20 @@ from .models import ParkCreator, HoleCreater
 from .forms import ParkCreateModelForm, HoleCreateModelForm
 
 
+def card_list_view(request):
+    # list out / search for objects
+    list = []
+    qs = HoleCreater.objects.all()  # queryset -> list of python objects
+    if request.user.is_authenticated:
+        for q in qs:
+            if q.parkName not in list:
+                list.append(q.parkName)
+    template_name = 'home.html'
+    context = {'course_list': list}
+    return render(request, template_name, context)
+
+
+@login_required
 def course_detail_view(request, name):
     # queryset -> list of python objects
     qs = HoleCreater.objects.filter(parkName__park_name=name)
