@@ -45,11 +45,11 @@ def card_list_view(request):
 
 @login_required
 def create_park_view(request):
-    form = HoleCreateModelForm(request.POST or None, request.FILES or None)
+    form = ParkCreateModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
-        form = HoleCreateModelForm()
+        form = ParkCreateModelForm()
     template_name = 'courses/parkform.html'
     context = {'form': form}
     return render(request, template_name, context)
