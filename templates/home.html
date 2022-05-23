@@ -3,39 +3,48 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  {% csrf_token %}
-  <h1 class='text-light'>Hi {{ user.username }} !</h1>
-  {% comment %} Code here {% endcomment %}
-  <!-- Creates a list of Courses  -->
-  <div class='row text-light'><h3>Recent Games</h3></div>
-<div class='row'>
-  <ul class="list-group list-group-flush" id="cards">
-  {% for course in course_list %}
-      <li class="list-group-item bg-secondary text-light"><h3>  {{course}}</h3></a</li>
-  {% endfor %}
-</ul>
+<div class='container'>
+  {% if user.is_authenticated %}
+    {% csrf_token %}
+  <div class='row'>
+    <div class='col-md-4'>
+    <h1 class='text-light'>Hi {{ user.username }} !</h1>
+    {% comment %} Code here {% endcomment %}
+    <!-- Creates a list of Courses  -->
+      <div class='row text-light'><h3>Recent Games</h3></div>
+      <ul class="list-group list-group-flush" id="cards">
+      {% for course in course_list %}
+          <li class="badge badge-secondary text-light" style="width: 200px"><h3>  {{course}}</h3></li>
+          </br>
+      {% endfor %}
+    </ul>
+    </div >
+  <!-- End of Creates a list of blank score card templates  -->
+    <div class='col-md-6' align='right'>
+      <br /><br /><br /><br /><br />
+      <div align="right" >
+        <a href="/park" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">View Courses</a>
+      </div>
+      <br /><br /><br /><br /><br />
+      {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
+      <div align="right" >
+        <a href="" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">New Game</a>
+      </div>
+      {% comment %} {% endif %} {% endcomment %}
+      {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
+      <br /><br />
+      <div align="right" >
+        <a href="" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">Continue Game</a>
+      </div>
+    </div>
 </div>
-<!-- End of Creates a list of blank score card templates  -->
-  <div align="right" >
-    <a href="/park" class="btn btn-primary btn-lg " 
-    tabindex="-1" role="button" aria-disabled="true">View Courses</a>
-  </div>
-  <br /><br /><br /><br /><br />
-  {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
-    <div align="right" >
-      <a href="" class="btn btn-primary btn-lg " 
-      tabindex="-1" role="button" aria-disabled="true">New Game</a>
+    {% comment %} {% endif %}} {% endcomment %}
+  {% else %}
+      <p>You are not logged in</p>
+  {% endif %}
     </div>
-  {% comment %} {% endif %} {% endcomment %}
-  {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
-  <br /><br />
-    <div align="right" >
-      <a href="" class="btn btn-primary btn-lg " 
-      tabindex="-1" role="button" aria-disabled="true">Continue Game</a>
-    </div>
-  {% comment %} {% endif %}} {% endcomment %}
-{% else %}
-    <p>You are not logged in</p>
-{% endif %}
+</div>
 {% endblock %}
