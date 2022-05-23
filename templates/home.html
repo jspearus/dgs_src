@@ -13,18 +13,18 @@
     <!-- Creates a list of Courses  -->
       <div class='text-light'><h3>Recent Games</h3></div>
       <ul class="list-group list-group-flush" id="cards">
-      {% for course in course_list %}
-          <li class="badge badge-secondary text-light" style="width: 200px"><h3>  {{course}}</h3></li>
-          </br>
-      {% endfor %}
-    </ul>
+        {% for course in course_list %}
+            <li class="badge badge-secondary text-light" style="width: 200px"><h3>  {{course}}</h3></li>
+            </br>
+        {% endfor %}
+      </ul>
     </div >
   <!-- End of Creates a list of blank score card templates  -->
     <div class='col-md-6' align='right'>
       <br /><br /><br /><br /><br />
       <div align="right" >
         <a href="/park" class="btn btn-primary btn-lg " 
-        tabindex="-1" role="button" aria-disabled="true">View Courses</a>
+        tabindex="-1" role="button" aria-disabled="true">View Parks</a>
       </div>
       <br /><br /><br /><br /><br />
       {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}

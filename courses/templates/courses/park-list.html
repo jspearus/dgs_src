@@ -3,17 +3,26 @@
 
 {% block content %}
 <!-- Creates a list of Courses  -->
-<div class='row text-light'><h2>Courses</h2></div>
-<div class='row'>
-  <ul class="list-group list-group-flush" id="cards">
-  {% for course in course_list %}
-      <li class="list-group-item bg-secondary"><a href="/park-detail/{{course}}"><h3>  {{course}}</h3></a</li>
-  {% endfor %}
-</ul>
-</div>
-<div align="right">
-  <a href="/" class="btn btn-primary btn-lg " 
-  tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
-</div>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-6' align='left'>
+    <div class='text-light'><h2>Parks:</h2></div>
+      <ul class="list-group list-group-flush"  id="parks">
+      {% for course in course_list %}
+        <li class="badge badge-secondary text-light" style="width: 200px"><a href="/park-detail/{{course}}"><h3> {{course}}</h3></li>
+        </br> 
+      {% endfor %}
+    </ul>
+    </div>
+    <div class='col-md-6'>
+      {% comment %} todo something better than this {% endcomment %}
+    </br></br></br></br></br></br></br></br></br>
+      <div align="right">
+        <a href="/" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div
 <!-- End of Creates a list of blank score card templates  -->
 {% endblock %}
