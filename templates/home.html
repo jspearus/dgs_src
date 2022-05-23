@@ -7,7 +7,7 @@
   {% if user.is_authenticated %}
     {% csrf_token %}
   <div class='row'>
-    <div class='col-md-6'>
+    <div class='col-md-4'>
     <h1 class='text-light' align='left'>Hello {{user.username}}!</h1>
     {% comment %} Code here {% endcomment %}
     <!-- Creates a list of Courses  -->
@@ -20,7 +20,7 @@
       </ul>
     </div >
   <!-- End of Creates a list of blank score card templates  -->
-    <div class='col-md-6' align='right'>
+    <div class='col-md-4' align='right'>
       <br /><br /><br /><br /><br />
       <div align="right" >
         <a href="/park" class="btn btn-primary btn-lg " 
