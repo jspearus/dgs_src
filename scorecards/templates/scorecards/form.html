@@ -1,27 +1,29 @@
 {% extends "base.html" %}
-
 {% block content %}
 
     {% if title %}
         <h1> {{title}} </h1>
     {%endif%}
-<form method="POST" action="." enctype='multipart/form-data'> {% csrf_token %}
+<form method="POST" action=""> {% csrf_token %}
     <h1> Create New Scorecard </h1>
     {% comment %} {{ form.as_p }} {% endcomment %}
     <div class="form-group">
-        <label> Card Name </label>
-        {{ form.cardName }}
+        <label for="cardName">Card Name</label>
+        <input type="text" class="form-control" name="cardName" id="cardName" placeholder="Enter Name Of Scorecard">
     </div>
     <div class="form-group">
-        <label> Name Of Park </label>
-        {{ form.parkName }}
+        <label for="parkName">Select Park</label>
+        <select class="form-control" name="parkName" id="parkName">
+            {% for course in course_list %}
+                <option>{{course}}</option>
+                {% endfor %}
+        </select>
     </div>
     <div class="form-group">
-        <label> Number Of Holes</label>
-        {{ form.numOfHoles }}
+        <label for="cardName">Number of Holes</label>
+        <input type="text" class="form-control" name="numOfHoles" id="numOfHoles" placeholder="Enter Nunber of Holes">
     </div>
-
-    <button type="submit">Send</button>
+<button type="submit">Create</button>
 </form>
 <div align="right">
     <a href="/" class="btn btn-primary btn-lg " 
