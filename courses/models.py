@@ -32,3 +32,6 @@ class HoleCreater(models.Model):
     tee = models.CharField(max_length=10, default='White')
     par = models.IntegerField(default=3)
     distance = models.IntegerField(default=250)
+
+    def __str__(self):
+        return self.parkName + str(self.holeNumber)

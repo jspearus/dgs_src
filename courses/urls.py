@@ -6,6 +6,7 @@ from django.views.generic.base import RedirectView
 from .views import (
     create_park_view,
     course_detail_view,
+    hole_editor_view,
     create_hole_view,
     delete_hole_view,
     course_list_view,
@@ -14,9 +15,10 @@ from .views import (
 
 
 urlpatterns = [
-    path('create/', create_hole_view),
+    path('create/<str:name>', create_hole_view),
     path('newpark/', create_park_view),
     path('deletecourse/', delete_hole_view),
     path('park/', course_list_view),
     path('park-detail/<str:name>', course_detail_view),
+    path('hole-edit/<str:name>/<int:hole>', hole_editor_view),
 ]

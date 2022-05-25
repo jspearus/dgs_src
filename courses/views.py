@@ -32,6 +32,25 @@ def course_detail_view(request, name):
 
 
 @login_required
+def hole_editor_view(request, name, hole):
+    # queryset -> list of python objects
+    qs = HoleCreater.objects.get(parkName=name, holeNumber=hole)
+    form = HoleCreateModelForm(request.POST or None, instance=qs)
+    form.fields['parkName'].widget.attrs['value'] = name
+    form.fields['parkName'].widget.attrs['readonly'] = True
+    if form.is_valid():
+        form.save()
+    template_name = 'courses/hole-edit.html'
+    context = {'form': form, 'name': name}
+    if request.method == "POST":
+        qs = HoleCreater.objects.filter(parkName=name)
+        template_name = 'courses/park-detail.html'
+        context = {'course_list': qs, 'name': name, 'title': 'Hole Updated'}
+        return render(request, template_name, context)
+    return render(request, template_name, context)
+
+
+@login_required
 def course_list_view(request):
     # list out / search for objects
     list = []
@@ -69,14 +88,18 @@ def create_park_view(request):
 
 
 @login_required
-def create_hole_view(request):
-    form = HoleCreateModelForm(request.POST or None, request.FILES or None)
+def create_hole_view(request, name):
+    form = HoleCreateModelForm(
+        request.POST or None, request.FILES or None)
+    form.fields['parkName'].widget.attrs['value'] = name
+    form.fields['parkName'].widget.attrs['readonly'] = True
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
-        form = HoleCreateModelForm()
     template_name = 'courses/form.html'
-    context = {'form': form}
+    context = {'form': form, 'name': name}
+    if request.method == "POST":
+        context = {'form': form, 'name': name, 'title': 'Hole Created!'}
     return render(request, template_name, context)
 
 

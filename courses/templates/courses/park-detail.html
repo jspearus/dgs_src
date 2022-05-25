@@ -2,19 +2,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if title %}
+    <h1> {{title}} </h1>
+{%endif%}
 <!-- Creates a list of Courses  -->
-<div class='row text-light'><h2>Holes</h2></div>
-<div class='row'>
-  <ul class="list-group list-group-flush" id="cards">
-    <li class="list-group-item bg-secondarytext-light"><h3>  {{name}}</h3></li>
-    {% for course in course_list %}
-        <li class="list-group-item bg-secondary text-light"><h5> {{course.holeNumber}}{{course.holeSub}} : {{course.basket}} - {{course.par}}: {{course.distance}}</h5></li>
-    {% endfor %}
-</ul>
-</div>
-<div align="right">
-  <a href="/park" class="btn btn-primary btn-lg " 
-  tabindex="-1" role="button" aria-disabled="true">Back to Parks</a>
+<div class='container-md'>
+    <div class='row'>
+        <div class='col-xs-2 col-md-3' align="left">
+            <h3 class="list-group-item bg-secondarytext-light" style="width: 200px">  {{name}}</h3></li>
+            <ul class="list-group list-group-flush" id="cards">
+                {% for course in course_list %}
+                <li class="list-group-item bg-secondary text-light" style="width: 200px">
+                    <a href="/hole-edit/{{name}}/{{course.holeNumber}}">
+                        <h5> {{course.holeNumber}}{{course.holeSub}} : {{course.basket}} - {{course.par}}: {{course.distance}}</h5></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class='col-xs-2 col-md-3' align="right">
+            <a href="/create/{{name}}" type="button" class="btn btn-primary btn-md" 
+              aria-disabled="true">Add Hole</a>
+
+             <a href="/park" class="btn btn-primary btn-md" 
+             type="button" aria-disabled="true">Back</a>
+        </div>
+    </div>
 </div>
 <!-- End of Creates a list of blank score card templates  -->
 {% endblock %}
