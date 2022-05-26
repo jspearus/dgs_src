@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
-from .models import ScoreCardCreator
+from .models import ScoreCardCreator, ScoreCardHoleCreator
 from courses.models import ParkCreator, HoleCreater
 from .forms import ScoreCardCreatorModelForm
 from courses.forms import ParkCreateModelForm, HoleCreateModelForm
@@ -44,11 +44,24 @@ def create_scorecard_view(request):
     template_name = 'scorecards/form.html'
     return render(request, template_name, context)
 
+@login_required
+def list_scorecards_view(request):
+    list = []
+    qs = ScoreCardCreator.objects.all()  # queryset -> list of python objects
+    if request.user.is_authenticated:
+        for q in qs:
+            if q.cardName not in list:
+                list.append(q.cardName)
+        context = {'course_list': list}
+
+    template_name = 'scorecards/card-list.html'
+    return render(request, template_name, context)
+
 
 @login_required
-def edit_scorecard_view(request):
+def edit_scorecard_view(request, cardName, holeNumber):
     courses = []
-    qs = ParkCreator.objects.all()
+    qs = ParkCreator.objects.all().filter(cardName=cardName, holeNumber=holeNumber)
     for q in qs:
         if q.park_name not in courses:
             courses.append(q.park_name)

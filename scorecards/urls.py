@@ -5,10 +5,12 @@ from django.views.generic.base import RedirectView
 
 from .views import (
     create_scorecard_view,
+    list_scorecards_view,
 
 )
 
 
 urlpatterns = [
-    path('cards/', create_scorecard_view),
+    path('newcard/', create_scorecard_view),
+    path('cards/', list_scorecards_view),
 ]
