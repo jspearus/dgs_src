@@ -37,10 +37,6 @@ def create_scorecard_view(request):
             title = "Card Created"
         # print(f"{list}, {cardName}, {parkName}, {numOfHoles}")
         context = {'title': title, 'course_list': list}
-        # new_card = ScoreCardCreator.objects.create(
-        #     cardName=cardName,  parkName=parkName, numOfHoles=numOfHoles)
-        # new_card.save()
-
     template_name = 'scorecards/newcardform.html'
     return render(request, template_name, context)
 
