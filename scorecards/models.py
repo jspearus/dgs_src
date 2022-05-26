@@ -16,13 +16,17 @@ class ScoreCardCreator(models.Model):
 
     def __str__(self):
         return self.cardName
-    
+
+
 class ScoreCardHoleCreator(models.Model):
     card_name = models.CharField(
-        max_length=140, unique=True, blank=False, null=False)
+        max_length=140, blank=False, null=False)
     holeNumber = models.IntegerField(blank=False, null=False)
     holeSub = models.CharField(max_length=1, blank=True)
     basket = models.CharField(max_length=10, blank=True)
-    tee = models.CharField(max_length=10, default='White')
+    tee = models.CharField(max_length=10)
     distance = models.IntegerField(blank=False, null=False)
     par = models.IntegerField(blank=False, null=False)
+
+    def __str__(self):
+        return self.card_name + str(self.holeNumber)

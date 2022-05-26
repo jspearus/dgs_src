@@ -33,12 +33,21 @@ def create_scorecard_view(request):
             obj.parkName = parkName
             obj.numOfHoles = numOfHoles
             obj.save()
+            for x in range(int(numOfHoles)):
+                qs = HoleCreater.objects.get(
+                    parkName=parkName, holeNumber=x+1)
+
+                record = ScoreCardHoleCreator.objects.create(
+                    card_name=cardName, holeNumber=qs.holeNumber,
+                    holeSub=qs.holeSub, basket=qs.basket, tee=qs.tee,
+                    distance=qs.distance, par=qs.par
+                )
             form = ScoreCardCreatorModelForm()
             title = "Card Created"
-        # print(f"{list}, {cardName}, {parkName}, {numOfHoles}")
         context = {'title': title, 'course_list': list}
-    template_name = 'scorecards/newcardform.html'
+    template_name = 'scorecards/new-card.html'
     return render(request, template_name, context)
+
 
 @login_required
 def list_scorecards_view(request):
@@ -53,12 +62,14 @@ def list_scorecards_view(request):
     template_name = 'scorecards/card-list.html'
     return render(request, template_name, context)
 
+
 @login_required
 def detail_scorecard_view(request, card):
-    qs = ScoreCardCreator.objects.filter(cardName=card)
+    qs = ScoreCardHoleCreator.objects.filter(card_name=card)
     context = {'course_list': qs, 'name': card, 'title': 'Hole Updated'}
     template_name = 'scorecards/card-detail.html'
     return render(request, template_name, context)
+
 
 @login_required
 def edit_scorecard_view(request, cardName, holeNumber):

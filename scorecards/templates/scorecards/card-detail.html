@@ -8,14 +8,18 @@
 <div class='container-md'>
     <div class='row'>
         <div class='col-xs-2 col-md-3' align="left">
-            <h3 class="list-group-item bg-secondary text-light" style="width: 200px">  {{name}}</h3></li>
+            <h3 class="list-group-item bg-secondary text-light" style="width: 200px">Park: {{c.parkName}} Card: {{c.card_name}}</h3></li>
             <ul class="list-group list-group-flush" id="cards">
                 {% for c in course_list %}
                 <li class="list-group-item bg-secondary text-light" style="width: 200px">
                     {% comment %} <a href="/hole-edit/{{name}}/{{course.holeNumber}}"> {% endcomment %}
-                        <h5> Card Name: {{c.cardName}}</h5>
-                        <h6> Park: {{c.parkName}}</h6>
-                        <h6> Holes: {{c.numOfHoles}}</h6></li>
+                        
+                        <h6> Hole: {{c.holeNumber}}</h6>
+                        <h6> holesub: {{c.holeSub}}</h6>
+                        <h6> basket: {{c.basket}}</h6>
+                        <h6> tee: {{c.tee}}</h6>
+                        <h6> distance: {{c.distance}}</h6>
+                        <h6> par: {{c.par}}</h6></li>
                 {% endfor %}
             </ul>
         </div>
