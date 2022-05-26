@@ -41,7 +41,7 @@ def create_scorecard_view(request):
         #     cardName=cardName,  parkName=parkName, numOfHoles=numOfHoles)
         # new_card.save()
 
-    template_name = 'scorecards/form.html'
+    template_name = 'scorecards/newcardform.html'
     return render(request, template_name, context)
 
 @login_required
