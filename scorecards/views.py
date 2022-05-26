@@ -53,6 +53,12 @@ def list_scorecards_view(request):
     template_name = 'scorecards/card-list.html'
     return render(request, template_name, context)
 
+@login_required
+def detail_scorecard_view(request, card):
+    qs = ScoreCardCreator.objects.filter(cardName=card)
+    context = {'course_list': qs, 'name': card, 'title': 'Hole Updated'}
+    template_name = 'scorecards/card-detail.html'
+    return render(request, template_name, context)
 
 @login_required
 def edit_scorecard_view(request, cardName, holeNumber):

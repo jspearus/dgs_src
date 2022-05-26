@@ -8,7 +8,8 @@
         <div class='text-light'><h2>Card List:</h2></div>
           <ul class="list-group list-group-flush"  id="parks">
           {% for course in course_list %}
-            <li class="badge badge-secondary text-light" style="width: 200px"><h5> {{course}}</h5></li>
+            <li class="badge badge-secondary text-light" style="width: 200px">
+                <a href="/card/{{course}}"><h5> {{course}}</h5></li>
             </br> 
           {% endfor %}
         </ul>
