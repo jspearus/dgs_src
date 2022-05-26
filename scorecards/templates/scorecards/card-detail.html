@@ -2,18 +2,20 @@
 
 {% block content %}
 {% if title %}
-    <h1> {{title}} </h1>
+    <h1 class= 'text-light'> {{title}} </h1>
 {%endif%}
 <!-- Creates a list of Courses  -->
 <div class='container-md'>
     <div class='row'>
         <div class='col-xs-2 col-md-3' align="left">
-            <h3 class="list-group-item bg-secondarytext-light" style="width: 200px">  {{name}}</h3></li>
+            <h3 class="list-group-item bg-secondary text-light" style="width: 200px">  {{name}}</h3></li>
             <ul class="list-group list-group-flush" id="cards">
                 {% for c in course_list %}
                 <li class="list-group-item bg-secondary text-light" style="width: 200px">
                     {% comment %} <a href="/hole-edit/{{name}}/{{course.holeNumber}}"> {% endcomment %}
-                        <h5> {{c.cardName}} - {{c.parkName}} : {{c.numOfHoles}}</h5></li>
+                        <h5> Card Name: {{c.cardName}}</h5>
+                        <h6> Park: {{c.parkName}}</h6>
+                        <h6> Holes: {{c.numOfHoles}}</h6></li>
                 {% endfor %}
             </ul>
         </div>
