@@ -7,27 +7,25 @@
 <!-- Creates a list of Courses  -->
 <div class='container-md'>
     <div class='row'>
-        <div class='col-xs-2 col-md-3' align="left">
-            <h3 class="list-group-item bg-secondary text-light" style="width: 200px">Park: {{c.parkName}} Card: {{c.card_name}}</h3></li>
+        <div class='col-xs-3 col-md-5' align="left">
+            <h5 class="list-group-item bg-secondary text-light" style="width: 300px">Card: {{name}}</h5>
+            <h6 class="list-group-item bg-secondary text-light" style="width: 300px">Park: {{park}} </h6>
             <ul class="list-group list-group-flush" id="cards">
                 {% for c in course_list %}
                 <li class="list-group-item bg-secondary text-light" style="width: 200px">
-                    {% comment %} <a href="/hole-edit/{{name}}/{{course.holeNumber}}"> {% endcomment %}
-                        
-                        <h6> Hole: {{c.holeNumber}}</h6>
-                        <h6> holesub: {{c.holeSub}}</h6>
-                        <h6> basket: {{c.basket}}</h6>
-                        <h6> tee: {{c.tee}}</h6>
-                        <h6> distance: {{c.distance}}</h6>
-                        <h6> par: {{c.par}}</h6></li>
+                        <h5> Hole: {{c.holeNumber}}-{{c.holeSub}}</h5>
+                        <h6> Tee: {{c.tee}} - basket: {{c.basket}}</h6>
+                        <h4> Par: {{c.par}}</h4>
+                        <h6> Dist: {{c.distance}}</h6>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
         <div class='col-xs-2 col-md-3' align="right">
             <a href="/create/{{name}}" type="button" class="btn btn-primary btn-md" 
               aria-disabled="true">Add Hole</a>
-
-             <a href="/park" class="btn btn-primary btn-md" 
+        </br></br>
+             <a href="/cards" class="btn btn-primary btn-md" 
              type="button" aria-disabled="true">Back</a>
         </div>
     </div>
