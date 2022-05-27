@@ -66,9 +66,9 @@ def list_scorecards_view(request):
 @login_required
 def detail_scorecard_view(request, card):
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
-    # todo get name of Park
-    park = qs
-    context = {'course_list': qs, 'name': card, 'park':park, 'title': 'Hole Updated'}
+    park = ScoreCardCreator.objects.filter(cardName=card).first()
+    context = {'course_list': qs, 'name': card,
+               'park': park.parkName, 'title': 'Hole Updated'}
     template_name = 'scorecards/card-detail.html'
     return render(request, template_name, context)
 
