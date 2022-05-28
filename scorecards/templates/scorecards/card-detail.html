@@ -23,6 +23,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                    <th scope="row">Hole # </th>
                     {% for c in course_list %}
                     <th scope="row">{{c.holeNumber}}</th>
                     {% endfor %}
@@ -30,10 +31,12 @@
             </thead>
             <tbody>
                 <tr>
+                    <td scope="row">Par: </td>
                 {% for c in course_list %}
                     <td scope="row">{{c.par}}</td>
                 {% endfor %}
                 </tr>
+                <td scope="row">Dist: </td>
                 {% for c in course_list %}
                     <td scope="row">{{c.distance}}</td>
                 {% endfor %}
