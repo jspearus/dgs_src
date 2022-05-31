@@ -42,6 +42,56 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </br>
+        {% if course_list_2 %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th class=" text-light" scope="row">Hole # </th>
+                        {% for c in course_list_2 %}
+                        <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class=" text-light" scope="row">Par: </td>
+                    {% for c in course_list_2 %}
+                        <td class=" text-light" scope="row">{{c.par}}</td>
+                    {% endfor %}
+                    </tr>
+                    <td class=" text-light" scope="row">Dist: </td>
+                    {% for c in course_list_2 %}
+                        <td class=" text-light" scope="row">{{c.distance}}</td>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {%endif%}
+        </br>
+        {% if course_list_3%}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th class=" text-light" scope="row">Hole # </th>
+                    {% for c in course_list_3 %}
+                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class=" text-light" scope="row">Par: </td>
+                {% for c in course_list_3 %}
+                    <td class=" text-light" scope="row">{{c.par}}</td>
+                {% endfor %}
+                </tr>
+                <td class=" text-light" scope="row">Dist: </td>
+                {% for c in course_list_3 %}
+                    <td class=" text-light" scope="row">{{c.distance}}</td>
+                {% endfor %}
+                </tbody>
+            </table>
+        {%endif%}
         </div>
         <div class='col-xs-2 col-md-3' align="right">
             <a href="/create/{{name}}" type="button" class="btn btn-primary btn-md" 
