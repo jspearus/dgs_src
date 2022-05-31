@@ -65,9 +65,19 @@ def list_scorecards_view(request):
 
 @login_required
 def detail_scorecard_view(request, card):
+    qs1 = []
+    qs2 = []
+    qs3 = []
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
     park = ScoreCardCreator.objects.filter(cardName=card).first()
-    context = {'course_list': qs, 'name': card,
+    for q in qs:
+        if q.holeNumber < 10:
+            qs1.append(q)
+        elif q.holeNumber < 19:
+            qs2.append(q)
+        else:
+            qs3.append(q)
+    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': card,
                'park': park.parkName, 'title': 'Hole Updated'}
     template_name = 'scorecards/card-detail.html'
     return render(request, template_name, context)
