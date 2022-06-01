@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if title %}
+        <h1> {{title}} </h1>
+    {%endif%}
+<form method="POST" action="" enctype='multipart/form-data'> {% csrf_token %}
+    <h1 class='text-light'> Edit Hole </h1>
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    <div class="form-group text-light">
+        <label> Card Name </label>
+        {{ form.card_name}}
+    </div>
+    <div class="form-group text-light">
+        <label> Hole Number </label>
+        {{ form.holeNumber }}
+    </div>
+    <div class="form-group text-light">
+        <label> Hole Sub Number </label>
+        {{ form.holeSub }}
+    </div>
+    <div class="form-group text-light">
+        <label> Basket </label>
+        {{ form.basket }}
+    </div>
+    <div class="form-group text-light">
+        <label> Tee </label>
+        {{ form.tee }}
+    </div>
+    <div class="form-group text-light">
+        <label> Distance </label>
+        {{ form.distance }}
+    </div>
+    <div class="form-group text-light">
+        <label> Par</label>
+        {{ form.par }}
+    </div>
+    <button type="submit">Update</button>
+</form>
+<div align="right">
+    <a href="/card/{{title}}" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">Back to Card</a>
+</div>
+
+{% endblock %}

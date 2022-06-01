@@ -22,6 +22,7 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
     path('', include("scorecards.urls")),
     path('', include("courses.urls")),
+    path('', include("play_game.urls")),
     path('settings/', settings_page),
 
 ]

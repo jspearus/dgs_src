@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from .models import ScoreCardCreator, ScoreCardHoleCreator
 from courses.models import ParkCreator, HoleCreater
-from .forms import ScoreCardCreatorModelForm
+from .forms import ScoreCardCreatorModelForm, ScoreCardHoleCreatorModelForm
 from courses.forms import ParkCreateModelForm, HoleCreateModelForm
 
 
@@ -51,13 +51,13 @@ def create_scorecard_view(request):
 
 @login_required
 def list_scorecards_view(request):
-    list = []
+    cardlist = []
     qs = ScoreCardCreator.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
-            if q.cardName not in list:
-                list.append(q.cardName)
-        context = {'course_list': list}
+            if q.cardName not in cardlist:
+                cardlist.append(q.cardName)
+        context = {'course_list': cardlist}
 
     template_name = 'scorecards/card-list.html'
     return render(request, template_name, context)
@@ -84,21 +84,18 @@ def detail_scorecard_view(request, card):
 
 
 @login_required
-def edit_scorecard_view(request, cardName, holeNumber):
-    courses = []
-    qs = ParkCreator.objects.all().filter(cardName=cardName, holeNumber=holeNumber)
-    for q in qs:
-        if q.park_name not in courses:
-            courses.append(q.park_name)
-    print(courses)
-    form = ScoreCardCreatorModelForm(
-        request.POST or None, request.FILES or None)
+def edit_scorecard_view(request, card, hole):
+    qs = ScoreCardHoleCreator.objects.all().filter(card_name=card, holeNumber=hole)
+    form = ScoreCardHoleCreatorModelForm(request.POST or None, instance=qs)
+    form.fields['card_name'].widget.attrs['value'] = card
+    form.fields['card_name'].widget.attrs['readonly'] = True
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
-        form = ScoreCardCreatorModelForm()
-    template_name = 'scorecards/form.html'
-    context = {'form': form, 'course_list': courses}
+        form = ScoreCardHoleCreatorModelForm()
+    title = card
+    template_name = 'scorecards/card-hole-edit.html'
+    context = {'form': form, 'title': title}
     if request.method == 'POST':
         # print(parkName)
         pass

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+    {% if title %}
+        <h1> {{title}} </h1>
+    {%endif%}
+    <div class='col-xs-2 col-md-3' align='left'>
+        <div class='text-light'><h2>Card List:</h2></div>
+          <ul class="list-group list-group-flush"  id="parks">
+          {% for card in card_list %}
+            <li class="badge badge-secondary text-light" style="width: 200px">
+                <a href="/new-game/{{card}}"><h5> {{card}}</h5></li>
+            </br> 
+          {% endfor %}
+        </ul>
+        </div>
+<div align="right">
+    <a href="/newcard" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">Create New Card</a>
+</div>
+</br></br>
+<div align="right">
+    <a href="/" class="btn btn-primary btn-lg " 
+    tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+</div>
+
+{% endblock %}

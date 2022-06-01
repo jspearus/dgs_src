@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'courses',
     'accounts',
     'scorecards',
+    'play_game',
 ]
 
 MIDDLEWARE = [
