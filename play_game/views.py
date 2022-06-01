@@ -3,7 +3,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
+
 from scorecards.models import ScoreCardCreator, ScoreCardHoleCreator
+from .models import GameCreator
 # Create your views here.
 
 
@@ -28,6 +30,9 @@ def new_game_view(request, name):
         card_name=name, holeNumber=hole).first()
     score = 0
     cScore = -1
+    user = None
+    if request.user.is_authenticated:
+        user = request.user
     if request.method == 'POST':
         if 'Next' == request.POST.get('NavHole'):
             hole = hole + 1
