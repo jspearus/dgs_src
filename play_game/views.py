@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 from scorecards.models import ScoreCardCreator, ScoreCardHoleCreator
-from .models import GameCreator
+from .models import GameCreator, CurrentGame
 # Create your views here.
 
 
@@ -25,26 +25,53 @@ def new_game_select_view(request):
 
 def new_game_view(request, name):
     park = ScoreCardCreator.objects.filter(cardName=name).first()
-    hole = 2
-    cur_hole = ScoreCardHoleCreator.objects.filter(
-        card_name=name, holeNumber=hole).first()
-    score = 0
-    cScore = -1
-    user = None
+    user = request.user
+    if park:
+        new_game_creater(request, name)
+        hole = CurrentGame.objects.filter(user=user).first()
+        curHole = GameCreator.objects.filter(
+            game=name, holeNumber=hole.cur_hole).first()
+        print(f"hole: {hole.cur_hole}")
+        score = 0
+        cScore = -1
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
         if 'Next' == request.POST.get('NavHole'):
-            hole = hole + 1
-            cur_hole = ScoreCardHoleCreator.objects.filter(
-                card_name=name, holeNumber=hole).first()
+            hole.cur_hole = hole.cur_hole + 1
+            if hole.cur_hole > park.numOfHoles:
+                hole.cur_hole = park.numOfHoles
+            hole.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
         elif 'Pre' == request.POST.get('NavHole'):
-            hole = hole - 1
-            cur_hole = ScoreCardHoleCreator.objects.filter(
-                card_name=name, holeNumber=hole).first()
+            hole.cur_hole = hole.cur_hole - 1
+            if hole.cur_hole < 1:
+                hole.cur_hole = 1
+            hole.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
     template_name = 'play_game/new-game.html'
     context = {'title': name, 'park': park.parkName,
-               'hole': hole, 'par': cur_hole.par, 'throws': cur_hole.par,
-               'dist': cur_hole.distance, 'Score': score, 'CurScore': cScore,
+               'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.par,
+               'dist': curHole.distance, 'Score': score, 'CurScore': cScore,
                'GameOver': False}
     return render(request, template_name, context)
+
+
+def new_game_creater(request, card):
+    qs = ScoreCardHoleCreator.objects.filter(card_name=card)
+    print(f"card: {card}")
+    hole = 1
+    if request.user.is_authenticated:
+        if not GameCreator.objects.filter(game=card):
+            game_status = CurrentGame.objects.create(user=request.user,
+                                                     game=card,
+                                                     progress="started",
+                                                     cur_hole=1)
+            for q in qs:
+                new_game = GameCreator.objects.create(user=request.user, game=card, hole=hole,
+                                                      holeNumber=q.holeNumber, tee='white',
+                                                      distance=q.distance, throws=q.par,
+                                                      par=q.par)
+                hole = hole+1

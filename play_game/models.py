@@ -1,9 +1,11 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
-
+from django.utils import timezone
 
 # Create your models here.
+
+
 class GameCreator(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              default=1, null=True,
@@ -18,9 +20,10 @@ class GameCreator(models.Model):
     distance = models.IntegerField(blank=False, null=False)
     throws = models.IntegerField(blank=False, null=False)
     par = models.IntegerField(blank=False, null=False)
+    timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.game + str(self.hole)
+        return str(self.user) + self.game + str(self.hole)
 
 
 class CurrentGame(models.Model):
@@ -31,8 +34,9 @@ class CurrentGame(models.Model):
         max_length=140, blank=False, null=False)
     progress = models.CharField(
         max_length=140, blank=False, null=False,
-        default='Started')
-    cur_hole = models.IntegerField(blank=False, null=False)
+        default='done')
+    cur_hole = models.IntegerField(blank=False,
+                                   null=False, default=0)
 
     def __str__(self):
-        return self.game + str(self.progress)
+        return self.game + str(self.cur_hole)
