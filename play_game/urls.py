@@ -9,6 +9,6 @@ from .views import (
 )
 
 urlpatterns = [
-    path('newgame', new_game_select_view),
+    path('newgame/', new_game_select_view),
     path('new-game/<str:name>', new_game_view),
 ]
