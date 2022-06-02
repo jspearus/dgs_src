@@ -33,8 +33,6 @@ def new_game_view(request, name):
             game=name, holeNumber=hole.cur_hole).first()
         print(f"hole: {hole.cur_hole}")
         print(f"throws: {curHole.throws}")
-        score = 0
-        cScore = -1
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
@@ -67,9 +65,21 @@ def new_game_view(request, name):
     template_name = 'play_game/new-game.html'
     context = {'title': name, 'park': park.parkName,
                'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.throws,
-               'dist': curHole.distance, 'Score': score, 'CurScore': cScore,
-               'GameOver': False}
+               'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
+               'CurScore': get_current_score(name), 'GameOver': False}
     return render(request, template_name, context)
+
+
+def get_current_score(name):
+    holes = GameCreator.objects.filter(
+        game=name)
+    throws = 0
+    par = 0
+    for h in holes:
+        throws = h.throws + throws
+        par = h.par + par
+        cScore = throws - par
+    return cScore
 
 
 def new_game_creater(request, card):
