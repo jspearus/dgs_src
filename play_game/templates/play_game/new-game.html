@@ -4,11 +4,11 @@
 <form method="POST">
     {% csrf_token %}
   <!-- Form for playing a new game -->
-  <h3 align="center">Card: {{title}}
+  <h3 class=" text-light" align="center">Card: {{title}}
   </h3>
-  <h4 align="center">Park: {{park}}
+  <h4 class=" text-light" align="center">Park: {{park}}
 </h4>
-  <h3 align="center">
+  <h3 class=" text-light" align="center">
     <div>Hole:</div>
     <a>
       {{hole}}
@@ -19,7 +19,7 @@
       <button class="btn btn-primary" name="NavHole" type="submit" value="DN">-</button>
     </div>
     <div>
-      <h5 align="center">PAR: {{par}}
+      <h5 class=" text-light" align="center">PAR: {{par}}
     </div>
     <div align="right" class="col col-md-2">
       <button class="btn btn-primary" name="NavHole" type="submit" value="UP">+</button>
@@ -28,7 +28,7 @@
   </h5>
   <br /><br />
   <div>
-    <h5 align="center">Distance: {{dist}} ft.
+    <h5 class=" text-light" align="center">Distance: {{dist}} ft.
   </div>
   <br /><br />
   <div>
@@ -37,7 +37,7 @@
       <button class="btn btn-primary" name="NavHole" type="submit" value="dn">-</button>
     </div>
     <div>
-      <h5 align="center">Throws: {{throws}}
+      <h5 class=" text-light" align="center">Throws: {{throws}}
     </div>
     <div align="right" class="col col-md-2">
       <button class="btn btn-primary" name="NavHole" type="submit" value="up">+</button>
@@ -46,10 +46,10 @@
   <br /><br /><br />
   <div align="left" class="row justify-content-md-center">
     <div class="col col-md-2">
-      <h5 align="left">Score: {{Score}}
+      <h5 class=" text-light" align="left">Score: {{Score}}
     </div>
     <div class="col col-md-2">
-      <h5 align="right">Cur. Score: {{CurScore}}
+      <h5 class=" text-light" align="right">Cur. Score: {{CurScore}}
     </div>
   </div>
   </h5>
