@@ -32,6 +32,7 @@ def new_game_view(request, name):
         curHole = GameCreator.objects.filter(
             game=name, holeNumber=hole.cur_hole).first()
         print(f"hole: {hole.cur_hole}")
+        print(f"throws: {curHole.throws}")
         score = 0
         cScore = -1
     if request.user.is_authenticated:
@@ -51,9 +52,21 @@ def new_game_view(request, name):
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
+        elif 'up' == request.POST.get('NavHole'):
+            curHole.throws = curHole.throws + 1
+            curHole.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
+        elif 'dn' == request.POST.get('NavHole'):
+            curHole.throws = curHole.throws - 1
+            if curHole.throws < 1:
+                curHole.throws = 1
+            curHole.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
     template_name = 'play_game/new-game.html'
     context = {'title': name, 'park': park.parkName,
-               'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.par,
+               'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.throws,
                'dist': curHole.distance, 'Score': score, 'CurScore': cScore,
                'GameOver': False}
     return render(request, template_name, context)
