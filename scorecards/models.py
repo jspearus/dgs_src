@@ -30,3 +30,6 @@ class ScoreCardHoleCreator(models.Model):
 
     def __str__(self):
         return self.card_name + str(self.holeNumber)
+
+    class Meta:
+        ordering = ['card_name', 'holeNumber', 'holeSub']
