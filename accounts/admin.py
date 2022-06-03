@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import GameSaver
+from .models import ParkStats
 
-admin.site.register(GameSaver)
+admin.site.register(ParkStats)
