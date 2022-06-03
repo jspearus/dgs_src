@@ -17,7 +17,6 @@ def new_game_select_view(request):
             if q.cardName not in cardlist:
                 cardlist.append(q.cardName)
         context = {'card_list': cardlist}
-
     template_name = 'play_game/card-select.html'
     context = {'card_list': cardlist, 'title': "New Game"}
     return render(request, template_name, context)
@@ -26,9 +25,10 @@ def new_game_select_view(request):
 def new_game_view(request, name):
     park = ScoreCardCreator.objects.filter(cardName=name).first()
     user = request.user
+    gameOver = False
     if park:
         new_game_creater(request, name)
-        hole = CurrentGame.objects.filter(user=user).first()
+        hole = CurrentGame.objects.filter(user=user, game=name).first()
         curHole = GameCreator.objects.filter(
             game=name, holeNumber=hole.cur_hole).first()
         print(f"hole: {hole.cur_hole}")
@@ -36,6 +36,8 @@ def new_game_view(request, name):
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
+        course = ScoreCardHoleCreator.objects.filter(
+            card_name=name, holeNumber=hole.cur_hole).first()
         if 'Next' == request.POST.get('NavHole'):
             hole.cur_hole = hole.cur_hole + 1
             if hole.cur_hole > park.numOfHoles:
@@ -62,11 +64,29 @@ def new_game_view(request, name):
             curHole.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
+        elif 'UP' == request.POST.get('NavHole'):
+            curHole.par = curHole.par + 1
+            curHole.save()
+            course.par = curHole.par
+            course.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
+        elif 'DN' == request.POST.get('NavHole'):
+            curHole.par = curHole.par - 1
+            if curHole.par < 1:
+                curHole.par = 1
+            curHole.save()
+            course.par = curHole.par
+            course.save()
+            curHole = GameCreator.objects.filter(
+                game=name, holeNumber=hole.cur_hole).first()
+        if hole.cur_hole == park.numOfHoles:
+            gameOver = True
     template_name = 'play_game/new-game.html'
     context = {'title': name, 'park': park.parkName,
                'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.throws,
                'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
-               'CurScore': get_current_score(name), 'GameOver': False}
+               'CurScore': get_current_score(name), 'GameOver': gameOver}
     return render(request, template_name, context)
 
 

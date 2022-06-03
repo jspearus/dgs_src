@@ -35,3 +35,7 @@ def Register(request):
                                     )
             login(request, new_user)
             return HttpResponseRedirect("/")
+
+
+def save_game(request):
+    pass
