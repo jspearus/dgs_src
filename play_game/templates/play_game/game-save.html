@@ -33,6 +33,12 @@
             </thead>
             <tbody>
                 <tr>
+                    <td class=" text-light" scope="row">Dist: </td>
+                {% for c in course_list %}
+                    <td class=" text-light" scope="row">{{c.distance}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
                     <td class=" text-light" scope="row">Par: </td>
                 {% for c in course_list %}
                     <td class=" text-light" scope="row">{{c.par}}</td>
@@ -62,6 +68,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td class=" text-light" scope="row">Dist: </td>
+                    {% for c in course_list_2 %}
+                        <td class=" text-light" scope="row">{{c.distance}}</td>
+                    {% endfor %}
+                    </tr>
                     <tr>
                         <td class=" text-light" scope="row">Par: </td>
                     {% for c in course_list_2 %}
@@ -93,6 +105,12 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td class=" text-light" scope="row">Dist: </td>
+                {% for c in course_list_3 %}
+                    <td class=" text-light" scope="row">{{c.distance}}</td>
+                {% endfor %}
+                </tr>
                 <tr>
                     <td class=" text-light" scope="row">Par: </td>
                 {% for c in course_list_3 %}
