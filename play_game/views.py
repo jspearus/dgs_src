@@ -118,8 +118,9 @@ def game_save_view(request, name):
             qs2.append(q)
         else:
             qs3.append(q)
+    tScore = get_current_score(name)
     context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': name,
-               'park': game.parkName, 'title': 'Saved Game Viewer'}
+               'park': game.parkName,'tScore':tScore, 'title': 'Saved Game Viewer'}
     template_name = 'play_game/game-save.html'
     return render(request, template_name, context)
 

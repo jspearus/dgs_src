@@ -6,6 +6,7 @@
 {%endif%}
 <!-- Creates a list of Courses  -->
 <div class='container-md'>
+    {% load mathfilters %}
     <div class='row'>
         <div class='col-xs-3 col-md-5' align="left">
             <h5 class="list-group-item bg-secondary text-light" style="width: 300px">Card: {{name}}</h5>
@@ -43,9 +44,9 @@
                     <td class=" text-light" scope="row">{{c.throws}}</td>
                 {% endfor %}
                 </tr>
-                <td class=" text-light" scope="row">Dist: </td>
+                <td class=" text-light" scope="row">Score: </td>
                 {% for c in course_list %}
-                    <td class=" text-light" scope="row">{{c.distance}}</td>
+                    <td class=" text-light" scope="row">{{c.throws|sub:c.par}}</td>
                 {% endfor %}
                 </tbody>
             </table>
@@ -66,14 +67,16 @@
                     {% for c in course_list_2 %}
                         <td class=" text-light" scope="row">{{c.par}}</td>
                     {% endfor %}
-                    <td class=" text-light" scope="row">Throws: </td>
+                    </tr>
+                    <tr>
+                        <td class=" text-light" scope="row">Throws: </td>
                     {% for c in course_list_2 %}
                         <td class=" text-light" scope="row">{{c.throws}}</td>
                     {% endfor %}
                     </tr>
-                    <td class=" text-light" scope="row">Dist: </td>
+                    <td class=" text-light" scope="row">Score: </td>
                     {% for c in course_list_2 %}
-                        <td class=" text-light" scope="row">{{c.distance}}</td>
+                        <td class=" text-light" scope="row">{{c.throws|sub:c.par}}</td>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -100,19 +103,20 @@
                     <td class=" text-light" scope="row">{{c.throws}}</td>
                 {% endfor %}
                 </tr>
-                <td class=" text-light" scope="row">Dist: </td>
+                <td class=" text-light" scope="row">Score: </td>
                 {% for c in course_list_3 %}
-                    <td class=" text-light" scope="row">{{c.distance}}</td>
+                    <td class=" text-light" scope="row">{{c.throws|sub:c.par}}</td>
                 {% endfor %}
                 </tbody>
             </table>
         {%endif%}
+        <div class=' text-light' align='right'>Total Score: {{tScore}}</div>
         </div>
         <div class='col-xs-2 col-md-3' align="right">
             <a href="" type="button" class="btn btn-primary btn-md" 
               aria-disabled="true">Delete</a>
         </br></br>
-             <a href="/cards" class="btn btn-primary btn-md" 
+             <a href="/" class="btn btn-primary btn-md" 
              type="button" aria-disabled="true">Back</a>
         </div>
     </div>
