@@ -60,5 +60,8 @@ class GameSave(models.Model):
     par = models.IntegerField(blank=False, null=False)
     timestamp = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['card', 'hole', 'holeSub']
+
     def __str__(self):
         return str(self.user)+"-" + self.card + "-" + str(self.hole) + "-" + str(self.timestamp)
