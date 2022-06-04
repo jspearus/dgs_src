@@ -13,8 +13,12 @@ from .views import (
 from courses.views import(
     card_list_view,
 )
+from play_game.views import (
+    game_list_view,
+)
+
 urlpatterns = [
-    path('', card_list_view),
+    path('', game_list_view),
     # path('favicon.ico', RedirectView.as_view(
     #     url=staticfiles_storage.url('img/apple-touch-icon.ico'))),
     path('admin/', admin.site.urls),

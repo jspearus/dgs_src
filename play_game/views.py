@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 from scorecards.models import ScoreCardCreator, ScoreCardHoleCreator
-from .models import GameCreator, CurrentGame
+from accounts.models import ParkStats
+from .models import GameCreator, CurrentGame, GameSave
 # Create your views here.
 
 
@@ -26,6 +27,7 @@ def new_game_view(request, name):
     park = ScoreCardCreator.objects.filter(cardName=name).first()
     user = request.user
     gameOver = False
+    title = name
     if park:
         new_game_creater(request, name)
         hole = CurrentGame.objects.filter(user=user, game=name).first()
@@ -80,13 +82,58 @@ def new_game_view(request, name):
             course.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
+
+        elif 'save' == request.POST.get('NavHole'):
+            holes = GameCreator.objects.filter(
+                game=name, user=user)
+            for h in holes:
+                save = GameSave.objects.create(
+                    user=user, card=name, hole=h.hole, holeNumber=h.holeNumber,
+                    holeSub=h.holeSub, basket=h.basket, tee=h.tee,
+                    distance=h.distance, par=h.par, throws=h.throws,
+                    timestamp=h.timestamp)
+            title = "Game Saved"
+
         if hole.cur_hole == park.numOfHoles:
             gameOver = True
     template_name = 'play_game/new-game.html'
-    context = {'title': name, 'park': park.parkName,
+    context = {'title': title, 'park': park.parkName,
                'hole': hole.cur_hole, 'par': curHole.par, 'throws': curHole.throws,
                'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
                'CurScore': get_current_score(name), 'GameOver': gameOver}
+    return render(request, template_name, context)
+
+
+@login_required
+def game_save_view(request, name):
+    qs1 = []
+    qs2 = []
+    qs3 = []
+    qs = GameSave.objects.filter(card=name)
+    game = ScoreCardCreator.objects.filter(cardName=name).first()
+    for q in qs:
+        if q.holeNumber < 10:
+            qs1.append(q)
+        elif q.holeNumber < 19:
+            qs2.append(q)
+        else:
+            qs3.append(q)
+    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': name,
+               'park': game.parkName, 'title': 'Saved Game Viewer'}
+    template_name = 'play_game/game-save.html'
+    return render(request, template_name, context)
+
+
+def game_list_view(request):
+    # list out / search for objects
+    gList = []
+    qs = GameSave.objects.all()  # queryset -> list of python objects
+    if request.user.is_authenticated:
+        for q in qs:
+            if q.card not in gList:
+                gList.append(q.card)
+    template_name = 'home.html'
+    context = {'games_list': gList}
     return render(request, template_name, context)
 
 

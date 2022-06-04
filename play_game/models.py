@@ -61,4 +61,4 @@ class GameSave(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return str(self.user) + self.card + str(self.timestamp)
+        return str(self.user)+"-" + self.card + "-" + str(self.hole) + "-" + str(self.timestamp)
