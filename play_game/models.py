@@ -32,6 +32,8 @@ class CurrentGame(models.Model):
                              on_delete=models.SET_NULL)
     game = models.CharField(
         max_length=140, blank=False, null=False)
+    # card = models.CharField(
+    #     max_length=140, blank=False, null=False)
     progress = models.CharField(
         max_length=140, blank=False, null=False,
         default='done')
