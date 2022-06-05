@@ -12,6 +12,8 @@ class GameCreator(models.Model):
                              on_delete=models.SET_NULL)
     game = models.CharField(
         max_length=140, blank=False, null=False)
+    park = models.CharField(
+        max_length=140, blank=False, null=False)
     hole = models.IntegerField(blank=False, null=False)
     holeNumber = models.IntegerField(blank=False, null=False)
     holeSub = models.CharField(max_length=1, blank=True)

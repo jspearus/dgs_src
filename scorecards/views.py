@@ -37,7 +37,7 @@ def create_scorecard_view(request):
                 qs = HoleCreater.objects.get(
                     parkName=parkName, holeNumber=x+1)
                 record = ScoreCardHoleCreator.objects.create(
-                    card_name=cardName, holeNumber=qs.holeNumber,
+                    card_name=cardName, park_name=parkName, holeNumber=qs.holeNumber,
                     holeSub=qs.holeSub, basket=qs.basket, tee=qs.tee,
                     distance=qs.distance, par=qs.par
                 )

@@ -21,6 +21,8 @@ class ScoreCardCreator(models.Model):
 class ScoreCardHoleCreator(models.Model):
     card_name = models.CharField(
         max_length=140, blank=False, null=False)
+    park_name = models.CharField(
+        max_length=140)
     holeNumber = models.IntegerField(blank=False, null=False)
     holeSub = models.CharField(max_length=1, blank=True)
     basket = models.CharField(max_length=10, blank=True)

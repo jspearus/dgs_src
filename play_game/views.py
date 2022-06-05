@@ -83,14 +83,13 @@ def new_game_view(request, name):
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
 
-
         elif 'save' == request.POST.get('NavHole'):
             holes = GameCreator.objects.filter(
                 game=name, user=user)
             for h in holes:
                 save = GameSave.objects.create(
-                    user=user, card=name, hole=h.hole, park=h.park, 
-                    holeNumber=h.holeNumber, holeSub=h.holeSub, basket=h.basket, 
+                    user=user, card=name, hole=h.hole, park=h.park,
+                    holeNumber=h.holeNumber, holeSub=h.holeSub, basket=h.basket,
                     tee=h.tee, distance=h.distance, par=h.par, throws=h.throws,
                     timestamp=h.timestamp)
             title = "Game Saved"
@@ -167,7 +166,7 @@ def new_game_creater(request, card):
                                                      progress="started",
                                                      cur_hole=1)
             for q in qs:
-                new_game = GameCreator.objects.create(user=request.user, game=card, park=q.park, hole=hole,
+                new_game = GameCreator.objects.create(user=request.user, game=card, park=q.park_name, hole=hole,
                                                       holeNumber=q.holeNumber, tee='white',
                                                       distance=q.distance, throws=q.par,
                                                       par=q.par)
