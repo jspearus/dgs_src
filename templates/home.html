@@ -51,6 +51,17 @@
     {% comment %} {% endif %}} {% endcomment %}
   {% else %}
       <p>You are not logged in</p>
+      <br /><br /><br /><br /><br />
+      {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
+      <div align="center" >
+        <a href="/accounts/signup" class="btn btn-primary btn-md "  role="button" aria-disabled="true">Signup</a>
+      </div>
+      {% comment %} {% endif %} {% endcomment %}
+      {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
+      <br /><br />
+      <div align="center" >
+        <a href="{% url 'login' %}" class="btn btn-primary btn-md " role="button" aria-disabled="true">Login</a>
+      </div>
   {% endif %}
     </div>
 </div>

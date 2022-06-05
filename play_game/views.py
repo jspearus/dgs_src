@@ -110,6 +110,8 @@ def game_save_view(request, name):
     qs2 = []
     qs3 = []
     qs = GameSave.objects.filter(card=name)
+    date = GameSave.objects.filter(card=name).first()
+    day = date.timestamp.day
     game = ScoreCardCreator.objects.filter(cardName=name).first()
     for q in qs:
         if q.holeNumber < 10:
@@ -120,7 +122,7 @@ def game_save_view(request, name):
             qs3.append(q)
     tScore = get_current_score(name)
     context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': name,
-               'park': game.parkName,'tScore':tScore, 'title': 'Saved Game Viewer'}
+               'park': game.parkName, 'tScore': tScore, 'title': "Saved Game"}
     template_name = 'play_game/game-save.html'
     return render(request, template_name, context)
 
@@ -132,6 +134,7 @@ def game_list_view(request):
     if request.user.is_authenticated:
         for q in qs:
             if q.card not in gList:
+                #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
     template_name = 'home.html'
     context = {'games_list': gList}
