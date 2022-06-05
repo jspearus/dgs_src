@@ -136,6 +136,7 @@ def game_list_view(request):
             if q.card not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
+                # todo add object list and send that to page view to get name and timestamp
     template_name = 'home.html'
     context = {'games_list': gList}
     return render(request, template_name, context)
