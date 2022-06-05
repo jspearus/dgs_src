@@ -9,8 +9,8 @@
     {% load mathfilters %}
     <div class='row'>
         <div class='col-xs-3 col-md-5' align="left">
-            <h5 class="list-group-item bg-secondary text-light" style="width: 300px">Card: {{name}}</h5>
-            <h6 class="list-group-item bg-secondary text-light" style="width: 300px">Park: {{park}} </h6>
+            <h5 class="list-group-item bg-secondary text-light" style="width: 300px">Card: {{name.card}}</h5>
+            <h6 class="list-group-item bg-secondary text-light" style="width: 300px">Park: {{park.park}} </h6>
             {% comment %} <ul class="list-group list-group-flush" id="cards">
                 {% for c in course_list %}
                 <li class="list-group-item bg-secondary text-light" style="width: 200px">

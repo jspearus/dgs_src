@@ -83,14 +83,15 @@ def new_game_view(request, name):
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
 
+
         elif 'save' == request.POST.get('NavHole'):
             holes = GameCreator.objects.filter(
                 game=name, user=user)
             for h in holes:
                 save = GameSave.objects.create(
-                    user=user, card=name, hole=h.hole, holeNumber=h.holeNumber,
-                    holeSub=h.holeSub, basket=h.basket, tee=h.tee,
-                    distance=h.distance, par=h.par, throws=h.throws,
+                    user=user, card=name, hole=h.hole, park=h.park, 
+                    holeNumber=h.holeNumber, holeSub=h.holeSub, basket=h.basket, 
+                    tee=h.tee, distance=h.distance, par=h.par, throws=h.throws,
                     timestamp=h.timestamp)
             title = "Game Saved"
 
@@ -105,14 +106,13 @@ def new_game_view(request, name):
 
 
 @login_required
-def game_save_view(request, name):
+def game_save_view(request, name, day):
     qs1 = []
     qs2 = []
     qs3 = []
+    print(day)
     qs = GameSave.objects.filter(card=name)
-    date = GameSave.objects.filter(card=name).first()
-    day = date.timestamp.day
-    game = ScoreCardCreator.objects.filter(cardName=name).first()
+    game = GameSave.objects.filter(card=name).first()
     for q in qs:
         if q.holeNumber < 10:
             qs1.append(q)
@@ -121,8 +121,8 @@ def game_save_view(request, name):
         else:
             qs3.append(q)
     tScore = get_current_score(name)
-    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': name,
-               'park': game.parkName, 'tScore': tScore, 'title': "Saved Game"}
+    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': game,
+               'park': game, 'tScore': tScore, 'title': "Saved Game"}
     template_name = 'play_game/game-save.html'
     return render(request, template_name, context)
 
@@ -130,6 +130,7 @@ def game_save_view(request, name):
 def game_list_view(request):
     # list out / search for objects
     gList = []
+    gObj = []
     qs = GameSave.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
@@ -137,8 +138,9 @@ def game_list_view(request):
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
                 # todo add object list and send that to page view to get name and timestamp
+                gObj.append(q)
     template_name = 'home.html'
-    context = {'games_list': gList}
+    context = {'games_list': gObj}
     return render(request, template_name, context)
 
 
@@ -165,7 +167,7 @@ def new_game_creater(request, card):
                                                      progress="started",
                                                      cur_hole=1)
             for q in qs:
-                new_game = GameCreator.objects.create(user=request.user, game=card, hole=hole,
+                new_game = GameCreator.objects.create(user=request.user, game=card, park=q.park, hole=hole,
                                                       holeNumber=q.holeNumber, tee='white',
                                                       distance=q.distance, throws=q.par,
                                                       par=q.par)
