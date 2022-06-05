@@ -105,22 +105,29 @@ def new_game_view(request, name):
 
 
 @login_required
-def game_save_view(request, name, day):
+def game_save_view(request, name, day, hour):
     qs1 = []
     qs2 = []
     qs3 = []
-    print(day)
+    print(f"DAY: {day}")
+    print(f"Hour: {hour}")
     qs = GameSave.objects.filter(card=name)
     game = GameSave.objects.filter(card=name).first()
     for q in qs:
-        if q.holeNumber < 10:
-            qs1.append(q)
-        elif q.holeNumber < 19:
-            qs2.append(q)
-        else:
-            qs3.append(q)
+        if str(q.timestamp.day) == day:
+            game = q
+    print(f"GameDay: {game.timestamp.day}")
+    print(f"GameHour: {game.timestamp.hour}")
+    for q in qs:
+        if str(q.timestamp.day) == day and str(q.timestamp.hour) == hour:
+            if q.holeNumber < 10:
+                qs1.append(q)
+            elif q.holeNumber < 19:
+                qs2.append(q)
+            else:
+                qs3.append(q)
     tScore = get_current_score(name)
-    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': game,
+    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3,
                'park': game, 'tScore': tScore, 'title': "Saved Game"}
     template_name = 'play_game/game-save.html'
     return render(request, template_name, context)
@@ -133,9 +140,10 @@ def game_list_view(request):
     qs = GameSave.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
-            if q.card not in gList:
+            if q.card and q.timestamp.day not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
+                gList.append(q.timestamp.day)
                 # todo add object list and send that to page view to get name and timestamp
                 gObj.append(q)
     template_name = 'home.html'

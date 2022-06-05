@@ -14,9 +14,9 @@
       <div class='text-light'><h3>Recent Games:</h3></div>
       <ul class="list-group list-group-flush" id="cards">
         {% for game in games_list %}
-            <li class="badge badge-secondary text-light" align='left' style="width: 150px">
-              <a href="/save-game/{{game.card}}/{{game.timestamp.day}}">
-              <h5>{{game.card}}</h5>
+            <li class="badge badge-secondary text-light" align='left' style="width: 200px">
+              <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"H"}}'>
+              <h6>{{game.card}} - {{game.timestamp|date:"M j Y"}}</h6>
             </li>
             </br>
         {% endfor %}
