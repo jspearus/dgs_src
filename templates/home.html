@@ -6,6 +6,9 @@
 <div class='container'>
   {% if user.is_authenticated %}
     {% csrf_token %}
+    {% if title %}
+        <h1> {{title}} </h1>
+    {%endif%}
   <div class='row'>
     <div class='col-xs-2 col-md-3'>
       <h1 class='text-light' align='left'>Hello {{user.username}}!</h1>
@@ -16,7 +19,7 @@
         {% for game in games_list %}
             <li class="badge badge-secondary text-light" align='left' style="width: 200px">
               <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"H"}}'>
-              <h6>{{game.card}} - {{game.timestamp|date:"M j Y"}}</h6>
+              <p>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
             </li>
             </br>
         {% endfor %}

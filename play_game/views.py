@@ -92,7 +92,24 @@ def new_game_view(request, name):
                     holeNumber=h.holeNumber, holeSub=h.holeSub, basket=h.basket,
                     tee=h.tee, distance=h.distance, par=h.par, throws=h.throws,
                     timestamp=h.timestamp)
-            title = "Game Saved"
+            curGame = CurrentGame.objects.filter(user=user)
+            curGame.filter(user=user).delete()
+            holes.delete()
+            #  todo make this a function
+            gList = []
+            gObj = []
+            qs = GameSave.objects.all()  # queryset -> list of python objects
+            if request.user.is_authenticated:
+                for q in qs:
+                    if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+                        #  + str(q.timestamp.day) - used to get day of month from timestamp
+                        gList.append(q.card)
+                        gList.append(q.timestamp.day)
+                        gList.append(q.timestamp.hour)
+                        gObj.append(q)
+            template_name = 'home.html'
+            context = {'games_list': gObj, 'title': 'Game Saved'}
+            return render(request, template_name, context)
 
         if hole.cur_hole == park.numOfHoles:
             gameOver = True
@@ -126,7 +143,7 @@ def game_save_view(request, name, day, hour):
                 qs2.append(q)
             else:
                 qs3.append(q)
-    tScore = get_current_score(name)
+    tScore = get_final_score(name, day, hour)
     context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3,
                'park': game, 'tScore': tScore, 'title': "Saved Game"}
     template_name = 'play_game/game-save.html'
@@ -134,17 +151,18 @@ def game_save_view(request, name, day, hour):
 
 
 def game_list_view(request):
+    #  todo make this a function
     # list out / search for objects
     gList = []
     gObj = []
     qs = GameSave.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
-            if q.card and q.timestamp.day not in gList:
+            if q.card and q.timestamp.day and q.timestamp.hour not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
                 gList.append(q.timestamp.day)
-                # todo add object list and send that to page view to get name and timestamp
+                gList.append(q.timestamp.hour)
                 gObj.append(q)
     template_name = 'home.html'
     context = {'games_list': gObj}
@@ -163,12 +181,27 @@ def get_current_score(name):
     return cScore
 
 
+def get_final_score(name, day, hour):
+    holes = GameSave.objects.filter(
+        card=name)
+    throws = 0
+    par = 0
+    for h in holes:
+        if str(h.timestamp.day) == day and str(h.timestamp.hour) == hour:
+            throws = h.throws + throws
+            par = h.par + par
+            cScore = throws - par
+    return cScore
+
+
 def new_game_creater(request, card):
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
     print(f"card: {card}")
     hole = 1
     if request.user.is_authenticated:
+        print(f"auth")
         if not GameCreator.objects.filter(game=card):
+            print(f"gamestart")
             game_status = CurrentGame.objects.create(user=request.user,
                                                      game=card,
                                                      progress="started",
