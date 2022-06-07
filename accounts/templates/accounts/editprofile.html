@@ -1,6 +1,7 @@
 {% extends "base.html"%}
 {% block title %}Edit Profile{% endblock %}
 {% block content %} 
+{% csrf_token %}
 <form method="POST">
     <h3 class='text-light' align ="center">Sign Up</h3>
     <div class="form-group text-light">
@@ -24,7 +25,7 @@
         />
     </div>
     <div class="form-group text-light">
-        <label for="password1">New Password (Confirm)</label>
+        <label for="password2">New Password (Confirm)</label>
         <input 
             type="password" 
             class="form-control" 
@@ -36,12 +37,10 @@
     <br />
     <button type="submit" class="btn btn-primary">Update Profile Settings</button>
 </form>
-<form method="POST">
   <br/>
   <div align="right">
    <a href="/settings" class="btn btn-primary btn-lg " 
    tabindex="-1" role="button" aria-disabled="true">Back to Settings</a>
   </div>
   <br /> <br />
-</form>
 {% endblock %}

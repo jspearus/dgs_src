@@ -98,6 +98,7 @@ def new_game_view(request, name):
             #  todo make this a function
             gList = []
             gObj = []
+            gameStarted = 'false'
             qs = GameSave.objects.all()  # queryset -> list of python objects
             if request.user.is_authenticated:
                 for q in qs:
@@ -108,7 +109,32 @@ def new_game_view(request, name):
                         gList.append(q.timestamp.hour)
                         gObj.append(q)
             template_name = 'home.html'
-            context = {'games_list': gObj, 'title': 'Game Saved'}
+            context = {'games_list': gObj, 'title': 'Game Saved',
+                       'gameStarted': gameStarted}
+            return render(request, template_name, context)
+
+        elif 'del' == request.POST.get('NavHole'):
+            holes = GameCreator.objects.filter(
+                game=name, user=user)
+            curGame = CurrentGame.objects.filter(user=user)
+            curGame.filter(user=user).delete()
+            holes.delete()
+            #  todo make this a function
+            gList = []
+            gObj = []
+            gameStarted = 'false'
+            qs = GameSave.objects.all()  # queryset -> list of python objects
+            if request.user.is_authenticated:
+                for q in qs:
+                    if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+                        #  + str(q.timestamp.day) - used to get day of month from timestamp
+                        gList.append(q.card)
+                        gList.append(q.timestamp.day)
+                        gList.append(q.timestamp.hour)
+                        gObj.append(q)
+            template_name = 'home.html'
+            context = {'games_list': gObj, 'title': 'Game Saved',
+                       'gameStarted': gameStarted}
             return render(request, template_name, context)
 
         if hole.cur_hole == park.numOfHoles:
@@ -155,17 +181,26 @@ def game_list_view(request):
     # list out / search for objects
     gList = []
     gObj = []
+    cardName = ''
+    gameStarted = 'false'
+    if request.user.is_authenticated:
+        if CurrentGame.objects.filter(user=request.user).exists():
+            gameStarted = 'true'
+        else:
+            gameStarted = 'false'
     qs = GameSave.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
             if q.card and q.timestamp.day and q.timestamp.hour not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
+                cardName = q.card
                 gList.append(q.timestamp.day)
                 gList.append(q.timestamp.hour)
                 gObj.append(q)
     template_name = 'home.html'
-    context = {'games_list': gObj}
+    context = {'games_list': gObj, 'cardName': cardName,
+               'gameStarted': gameStarted}
     return render(request, template_name, context)
 
 

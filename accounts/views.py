@@ -16,9 +16,13 @@ class SignUpView(generic.CreateView):
     template_name = "registration/signup.html"
 
 
+@login_required
 def edit_profile_page(request):
     user = request.user
     context = {"title": "test"}
+    if request.method == 'POST':
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
     template_name = "accounts/editprofile.html"
     return render(request, template_name, context)
 

@@ -9,63 +9,60 @@
     {% if title %}
         <h1> {{title}} </h1>
     {%endif%}
-  <div class='row'>
-    <div class='col-xs-2 col-md-3'>
-      <h1 class='text-light' align='left'>Hello {{user.username}}!</h1>
-      {% comment %} Code here {% endcomment %}
-      <!-- Creates a list of Courses  -->
-      <div class='text-light'><h3>Recent Games:</h3></div>
-      <ul class="list-group list-group-flush" id="cards">
-        {% for game in games_list %}
-            <li class="badge badge-secondary" align='left' style="width: 200px">
-              <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"H"}}'>
-              <p class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
-            </li>
-            </br>
-        {% endfor %}
-      </ul>
+    <div class='row'>
+      <div class='col-xs-2 col-md-3'>
+        <h1 class='text-light' align='left'>Hello {{user.username}}!</h1>
+        {% comment %} Code here {% endcomment %}
+        <!-- Creates a list of Courses  -->
+        <div class='text-light'><h3>Recent Games:</h3></div>
+        <ul class="list-group list-group-flush" id="cards">
+          {% for game in games_list %}
+              <li class="badge badge-secondary" align='left' style="width: 200px">
+                <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}'>
+                <p class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
+              </li>
+              </br>
+          {% endfor %}
+        </ul>
+      </div>
+        <!-- End of Creates a list of blank score card templates  -->
+      <div class='col-xs-2 col-md-3' align='right'>
+        <br /><br /><br /><br /><br />
+        <div align="right" >
+          <a href="/park" class="btn btn-primary btn-md " 
+            role="button" aria-disabled="true">Parks</a>
+        </div>
+        <br /><br />
+        <div align="right" >
+          <a href="/cards" class="btn btn-primary btn-md " 
+            role="button" aria-disabled="true">Cards</a>
+        </div>
+        <br /><br /><br /><br /><br />
+        {% if gameStarted == "true"%} 
+        <div align="true" >
+          <a href="/new-game/{{cardName}}" class="btn btn-primary btn-md "  role="button" aria-disabled="true">Continue</a>
+        </div>
+        {% endif %} 
+        {% if gameStarted == "false"%}
+        <div align="right" >
+          <a href="/newgame" class="btn btn-primary btn-md " role="button" aria-disabled="true">New Game</a>
+        </div>
+        {% endif %}
+      </div>
     </div>
-      <!-- End of Creates a list of blank score card templates  -->
-    <div class='col-xs-2 col-md-3' align='right'>
-      <br /><br /><br /><br /><br />
-      <div align="right" >
-        <a href="/park" class="btn btn-primary btn-md " 
-          role="button" aria-disabled="true">Parks</a>
-      </div>
-      <br /><br />
-      <div align="right" >
-        <a href="/cards" class="btn btn-primary btn-md " 
-          role="button" aria-disabled="true">Cards</a>
-      </div>
-      <br /><br /><br /><br /><br />
-      {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
-      <div align="right" >
-        <a href="/newgame" class="btn btn-primary btn-md "  role="button" aria-disabled="true">New</a>
-      </div>
-      {% comment %} {% endif %} {% endcomment %}
-      {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
-      <br /><br />
-      <div align="right" >
-        <a href="/newgame" class="btn btn-primary btn-md " role="button" aria-disabled="true">Cont</a>
-      </div>
-    </div>
-  </div>
-</div>
-    {% comment %} {% endif %}} {% endcomment %}
   {% else %}
-      <p>You are not logged in</p>
+    <div class='row'>
+      <h3 class='text-light' align='center'>You are not logged in...</p>
       <br /><br /><br /><br /><br />
-      {% comment %} {% if game == "false" and card == "true"%} {% endcomment %}
       <div align="center" >
         <a href="/accounts/signup" class="btn btn-primary btn-md "  role="button" aria-disabled="true">Signup</a>
       </div>
-      {% comment %} {% endif %} {% endcomment %}
-      {% comment %} {% if game == "false" and card == "false"%} {% endcomment %}
+
       <br /><br />
       <div align="center" >
         <a href="{% url 'login' %}" class="btn btn-primary btn-md " role="button" aria-disabled="true">Login</a>
       </div>
-  {% endif %}
     </div>
+  {% endif %}
 </div>
 {% endblock %}
