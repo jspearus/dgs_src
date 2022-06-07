@@ -16,7 +16,7 @@ class ParkStats(models.Model):
     basket = models.CharField(max_length=10, blank=True)
     tee = models.CharField(max_length=10)
     throws = models.IntegerField(blank=False, null=False)
-    timestamp = models.DateTimeField()
+    timesPlayed = models.IntegerField(blank=False, null=False)
 
     class Meta:
         ordering = ['user', 'park', 'holeNumber',

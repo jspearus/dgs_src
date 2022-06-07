@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from .forms import ChangePasswordForm
+from play_game.models import GameSave
 
 
 class SignUpView(generic.CreateView):
@@ -41,5 +42,20 @@ def Register(request):
             return HttpResponseRedirect("/")
 
 
-def save_game(request):
-    pass
+@login_required
+def save_game_stats(request):
+    gList = []
+    gObj = []
+    cardName = ''
+    qs = GameSave.objects.all()  # queryset -> list of python objects
+    for q in qs:
+        if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+            #  + str(q.timestamp.day) - used to get day of month from timestamp
+            gList.append(q.card)
+            cardName = q.card
+            gList.append(q.timestamp.day)
+            gList.append(q.timestamp.hour)
+            gObj.append(q)
+    context = {"title": "Player Stats", 'park_list': gObj}
+    template_name = "accounts/user-stats.html"
+    return render(request, template_name, context)
