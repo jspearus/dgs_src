@@ -222,9 +222,7 @@ def game_save_view(request, name, day, hour, Minute):
 
 
 def park_stat_view(request, park):
-    qs1 = []
-    qs2 = []
-    qs3 = []
+
     qs = ParkStats.objects.filter(park=park)
     park = ParkStats.objects.filter(park=park).first()
     for q in qs:
@@ -254,7 +252,8 @@ def game_list_view(request):
             cardName = game.game
         else:
             gameStarted = 'false'
-    qs = GameSave.objects.all()  # queryset -> list of python objects
+    # queryset -> list of python objects
+    qs = GameSave.objects.all().order_by('-timestamp')
     if request.user.is_authenticated:
         for q in qs:
             # todo for debug
