@@ -152,17 +152,24 @@ def new_game_view(request, name):
             gList = []
             gObj = []
             gameStarted = 'false'
-            qs = GameSave.objects.all()  # queryset -> list of python objects
+            qs = GameSave.objects.all().order_by('-timestamp')
             if request.user.is_authenticated:
                 for q in qs:
-                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m') not in gList:
+                    # todo for debug
+                    # print(f"DAY: {q.timestamp.day}")
+                    # print(f"Hour: {q.timestamp.hour}")
+                    # print(f"min: {q.timestamp.minute}")
+                    # print(f"list: {gList}")
+                    # print(f"obj: {gObj}")
+                    # todo for debug
+                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m')not in gList:
                         #  + str(q.timestamp.day) - used to get day of month from timestamp
                         gList.append(q.card)
                         gList.append(str(q.timestamp.day)+"d")
                         gList.append(str(q.timestamp.hour)+'h')
                         gList.append(str(q.timestamp.minute)+'m')
-                        gObj.append(q)
-            template_name = 'home.html'
+                        if len(gObj) < 3:
+                            gObj.append(q)
             context = {'games_list': gObj, 'title': 'Game Saved',
                        'gameStarted': gameStarted}
             return render(request, template_name, context)
