@@ -36,24 +36,18 @@ def new_game_view(request, name):
             game=name, holeNumber=hole.cur_hole).first()
         course = ScoreCardHoleCreator.objects.filter(
             card_name=name, holeNumber=hole.cur_hole).first()
-        park_stat = ParkStats.objects.filter(user=user, park=course.park_name,
-                                             holeNumber=course.holeNumber,
-                                             holeSub=course.holeSub,
-                                             basket=course.basket,
-                                             tee=course.tee).first()
+        park_stat = get_park_stats(user, course, hole.cur_hole)
+
         print(f"basket: {course.holeSub}")
         print(f"holesub: {course.tee}")
-        print(f"parkstat: {park_stat}")
+        print(f"curHole: {curHole}")
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
         course = ScoreCardHoleCreator.objects.filter(
             card_name=name, holeNumber=hole.cur_hole).first()
-        park_stat = ParkStats.objects.filter(user=user, park=course.park_name,
-                                             holeNumber=course.holeNumber,
-                                             holeSub=course.holeSub,
-                                             basket=course.basket,
-                                             tee=course.tee).first()
+        park_stat = get_park_stats(user, course, hole.cur_hole)
+
         if 'Next' == request.POST.get('NavHole'):
             hole.cur_hole = hole.cur_hole + 1
             if hole.cur_hole > park.numOfHoles:
@@ -61,11 +55,8 @@ def new_game_view(request, name):
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
-            park_stat = ParkStats.objects.filter(user=user, park=course.park_name,
-                                                 holeNumber=curHole.holeNumber,
-                                                 holeSub=course.holeSub,
-                                                 basket=course.basket,
-                                                 tee=course.tee).first()
+            park_stat = get_park_stats(user, course, hole.cur_hole)
+
         elif 'Pre' == request.POST.get('NavHole'):
             hole.cur_hole = hole.cur_hole - 1
             if hole.cur_hole < 1:
@@ -73,11 +64,8 @@ def new_game_view(request, name):
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
-            park_stat = ParkStats.objects.filter(user=user, park=course.park_name,
-                                                 holeNumber=curHole.holeNumber,
-                                                 holeSub=course.holeSub,
-                                                 basket=course.basket,
-                                                 tee=course.tee).first()
+            park_stat = get_park_stats(user, course, hole.cur_hole)
+
         elif 'up' == request.POST.get('NavHole'):
             curHole.throws = curHole.throws + 1
             curHole.save()
@@ -142,11 +130,11 @@ def new_game_view(request, name):
             qs = GameSave.objects.all()  # queryset -> list of python objects
             if request.user.is_authenticated:
                 for q in qs:
-                    if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
                         #  + str(q.timestamp.day) - used to get day of month from timestamp
                         gList.append(q.card)
-                        gList.append(q.timestamp.day)
-                        gList.append(q.timestamp.hour)
+                        gList.append(str(q.timestamp.day)+"d")
+                        gList.append(str(q.timestamp.hour)+'h')
                         gObj.append(q)
             template_name = 'home.html'
             context = {'games_list': gObj, 'title': 'Game Saved',
@@ -166,11 +154,11 @@ def new_game_view(request, name):
             qs = GameSave.objects.all()  # queryset -> list of python objects
             if request.user.is_authenticated:
                 for q in qs:
-                    if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
                         #  + str(q.timestamp.day) - used to get day of month from timestamp
                         gList.append(q.card)
-                        gList.append(q.timestamp.day)
-                        gList.append(q.timestamp.hour)
+                        gList.append(str(q.timestamp.day)+"d")
+                        gList.append(str(q.timestamp.hour)+'h')
                         gObj.append(q)
             template_name = 'home.html'
             context = {'games_list': gObj, 'title': 'Game Saved',
@@ -181,11 +169,25 @@ def new_game_view(request, name):
             gameOver = True
     template_name = 'play_game/new-game.html'
     context = {'title': title, 'park': park.parkName,
-               'hole': hole.cur_hole, 'par': curHole.par, 'avg': park_stat.throws/park_stat.timesPlayed,
+               'hole': hole.cur_hole, 'par': curHole.par,
+               'avg': round(park_stat.throws/park_stat.timesPlayed, 1),
                'throws': curHole.throws,
                'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
                'CurScore': get_current_score(name), 'GameOver': gameOver}
     return render(request, template_name, context)
+
+
+def get_park_stats(user, course, curHole):
+    park_stat = ParkStats.objects.filter(
+        user=user, park=course.park_name,
+        holeNumber=curHole,
+        holeSub=course.holeSub,
+        basket=course.basket,
+        tee=course.tee).first()
+    if park_stat.throws == 0 and park_stat.timesPlayed == 0:
+        park_stat.throws = 99
+        park_stat.timesPlayed = 1
+    return park_stat
 
 
 @login_required
@@ -193,15 +195,11 @@ def game_save_view(request, name, day, hour):
     qs1 = []
     qs2 = []
     qs3 = []
-    print(f"DAY: {day}")
-    print(f"Hour: {hour}")
     qs = GameSave.objects.filter(card=name)
     game = GameSave.objects.filter(card=name).first()
     for q in qs:
         if str(q.timestamp.day) == day:
             game = q
-    print(f"GameDay: {game.timestamp.day}")
-    print(f"GameHour: {game.timestamp.hour}")
     for q in qs:
         if str(q.timestamp.day) == day and str(q.timestamp.hour) == hour:
             if q.holeNumber < 10:
@@ -234,11 +232,17 @@ def game_list_view(request):
     qs = GameSave.objects.all()  # queryset -> list of python objects
     if request.user.is_authenticated:
         for q in qs:
-            if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+            # todo for debug
+            print(f"DAY: {q.timestamp.day}")
+            print(f"Hour: {q.timestamp.hour}")
+            print(f"list: {gList}")
+            print(f"obj: {gObj}")
+        # todo for debug
+            if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
-                gList.append(q.timestamp.day)
-                gList.append(q.timestamp.hour)
+                gList.append(str(q.timestamp.day)+"d")
+                gList.append(str(q.timestamp.hour)+'h')
                 gObj.append(q)
     template_name = 'home.html'
     context = {'games_list': gObj, 'cardName': cardName,
@@ -275,18 +279,28 @@ def new_game_creater(request, card):
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
     print(f"card: {card}")
     hole = 1
+    user = request.user
     if request.user.is_authenticated:
         print(f"auth")
         if not GameCreator.objects.filter(game=card):
             print(f"gamestart")
-            game_status = CurrentGame.objects.create(user=request.user,
+            game_status = CurrentGame.objects.create(user=user,
                                                      game=card,
                                                      progress="started",
                                                      cur_hole=1)
             for q in qs:
-                new_game = GameCreator.objects.create(user=request.user, game=card, park=q.park_name, hole=hole,
+                new_game = GameCreator.objects.create(user=user, game=card, park=q.park_name, hole=hole,
                                                       holeNumber=q.holeNumber, holeSub=q.holeSub, basket=q.basket,
                                                       tee=q.tee,
                                                       distance=q.distance, throws=q.par,
                                                       par=q.par)
                 hole = hole+1
+                if not ParkStats.objects.filter(
+                        user=user, park=q.park_name,
+                        holeNumber=q.holeNumber, holeSub=q.holeSub, basket=q.basket,
+                        tee=q.tee).exists():
+                    ParkStats.objects.create(
+                        user=user, park=q.park_name, holeNumber=q.holeNumber,
+                        holeSub=q.holeSub,
+                        basket=q.basket, tee=q.tee, throws=0,
+                        timesPlayed=0)
