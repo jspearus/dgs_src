@@ -18,7 +18,7 @@
         <ul class="list-group list-group-flush" id="cards">
           {% for game in games_list %}
               <li class="badge badge-secondary" align='left' style="width: 200px">
-                <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}'>
+                <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
                 <p class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
               </li>
               </br>

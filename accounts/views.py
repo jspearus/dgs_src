@@ -49,13 +49,13 @@ def save_game_stats(request):
     cardName = ''
     qs = GameSave.objects.all()  # queryset -> list of python objects
     for q in qs:
-        if q.card and q.timestamp.day and q.timestamp.hour not in gList:
+        if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m')not in gList:
             #  + str(q.timestamp.day) - used to get day of month from timestamp
             gList.append(q.card)
-            cardName = q.card
-            gList.append(q.timestamp.day)
-            gList.append(q.timestamp.hour)
+            gList.append(str(q.timestamp.day)+"d")
+            gList.append(str(q.timestamp.hour)+'h')
+            gList.append(str(q.timestamp.minute)+'m')
             gObj.append(q)
-    context = {"title": "Player Stats", 'park_list': gObj}
+    context = {"title": "Player Stats", 'games_list': gObj}
     template_name = "accounts/user-stats.html"
     return render(request, template_name, context)

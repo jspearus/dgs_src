@@ -12,5 +12,5 @@ from .views import (
 urlpatterns = [
     path('newgame/', new_game_select_view),
     path('new-game/<str:name>', new_game_view),
-    path('save-game/<str:name>/<str:day>/<str:hour>', game_save_view),
+    path('save-game/<str:name>/<str:day>/<str:hour>/<str:Minute>', game_save_view),
 ]

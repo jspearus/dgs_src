@@ -130,11 +130,12 @@ def new_game_view(request, name):
             qs = GameSave.objects.all()  # queryset -> list of python objects
             if request.user.is_authenticated:
                 for q in qs:
-                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
+                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m') not in gList:
                         #  + str(q.timestamp.day) - used to get day of month from timestamp
                         gList.append(q.card)
                         gList.append(str(q.timestamp.day)+"d")
                         gList.append(str(q.timestamp.hour)+'h')
+                        gList.append(str(q.timestamp.minute)+'m')
                         gObj.append(q)
             template_name = 'home.html'
             context = {'games_list': gObj, 'title': 'Game Saved',
@@ -154,11 +155,12 @@ def new_game_view(request, name):
             qs = GameSave.objects.all()  # queryset -> list of python objects
             if request.user.is_authenticated:
                 for q in qs:
-                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
+                    if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m') not in gList:
                         #  + str(q.timestamp.day) - used to get day of month from timestamp
                         gList.append(q.card)
                         gList.append(str(q.timestamp.day)+"d")
                         gList.append(str(q.timestamp.hour)+'h')
+                        gList.append(str(q.timestamp.minute)+'m')
                         gObj.append(q)
             template_name = 'home.html'
             context = {'games_list': gObj, 'title': 'Game Saved',
@@ -191,24 +193,28 @@ def get_park_stats(user, course, curHole):
 
 
 @login_required
-def game_save_view(request, name, day, hour):
+def game_save_view(request, name, day, hour, Minute):
     qs1 = []
     qs2 = []
     qs3 = []
     qs = GameSave.objects.filter(card=name)
     game = GameSave.objects.filter(card=name).first()
+    #  remove leading zero from single digit minute
+    if int(Minute) < 10:
+        new_minute = list(Minute)
+        Minute = new_minute[1]
     for q in qs:
-        if str(q.timestamp.day) == day:
+        if str(q.timestamp.day) == day and str(q.timestamp.hour) == hour and str(q.timestamp.minute) == Minute:
             game = q
     for q in qs:
-        if str(q.timestamp.day) == day and str(q.timestamp.hour) == hour:
+        if str(q.timestamp.day) == day and str(q.timestamp.hour) == hour and str(q.timestamp.minute) == Minute:
             if q.holeNumber < 10:
                 qs1.append(q)
             elif q.holeNumber < 19:
                 qs2.append(q)
             else:
                 qs3.append(q)
-    tScore = get_final_score(name, day, hour)
+    tScore = get_final_score(name, day, hour, Minute)
     context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3,
                'park': game, 'tScore': tScore, 'title': "Saved Game"}
     template_name = 'play_game/game-save.html'
@@ -233,16 +239,18 @@ def game_list_view(request):
     if request.user.is_authenticated:
         for q in qs:
             # todo for debug
-            print(f"DAY: {q.timestamp.day}")
-            print(f"Hour: {q.timestamp.hour}")
-            print(f"list: {gList}")
-            print(f"obj: {gObj}")
-        # todo for debug
-            if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') not in gList:
+            # print(f"DAY: {q.timestamp.day}")
+            # print(f"Hour: {q.timestamp.hour}")
+            # print(f"min: {q.timestamp.minute}")
+            # print(f"list: {gList}")
+            # print(f"obj: {gObj}")
+            # todo for debug
+            if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m')not in gList:
                 #  + str(q.timestamp.day) - used to get day of month from timestamp
                 gList.append(q.card)
                 gList.append(str(q.timestamp.day)+"d")
                 gList.append(str(q.timestamp.hour)+'h')
+                gList.append(str(q.timestamp.minute)+'m')
                 gObj.append(q)
     template_name = 'home.html'
     context = {'games_list': gObj, 'cardName': cardName,
@@ -262,13 +270,13 @@ def get_current_score(name):
     return cScore
 
 
-def get_final_score(name, day, hour):
+def get_final_score(name, day, hour, minute):
     holes = GameSave.objects.filter(
         card=name)
     throws = 0
     par = 0
     for h in holes:
-        if str(h.timestamp.day) == day and str(h.timestamp.hour) == hour:
+        if str(h.timestamp.day) == day and str(h.timestamp.hour) == hour and str(h.timestamp.minute) == minute:
             throws = h.throws + throws
             par = h.par + par
             cScore = throws - par
