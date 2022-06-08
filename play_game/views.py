@@ -222,7 +222,9 @@ def game_save_view(request, name, day, hour, Minute):
 
 
 def park_stat_view(request, park):
-
+    qs1 = []
+    qs2 = []
+    qs3 = []
     qs = ParkStats.objects.filter(park=park)
     park = ParkStats.objects.filter(park=park).first()
     for q in qs:
