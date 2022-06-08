@@ -9,6 +9,7 @@ from django.views import generic
 
 from .forms import ChangePasswordForm
 from play_game.models import GameSave
+from accounts.models import ParkStats
 
 
 class SignUpView(generic.CreateView):
@@ -45,9 +46,12 @@ def Register(request):
 @login_required
 def save_game_stats(request):
     gList = []
+    pList = []
     gObj = []
+    pObj = []
     cardName = ''
     qs = GameSave.objects.all()  # queryset -> list of python objects
+    qs2 = ParkStats.objects.all()  # queryset -> list of python objects
     for q in qs:
         if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m')not in gList:
             #  + str(q.timestamp.day) - used to get day of month from timestamp
@@ -56,6 +60,11 @@ def save_game_stats(request):
             gList.append(str(q.timestamp.hour)+'h')
             gList.append(str(q.timestamp.minute)+'m')
             gObj.append(q)
-    context = {"title": "Player Stats", 'games_list': gObj}
+    for q in qs2:
+        if q.park not in pList:
+            #  + str(q.timestamp.day) - used to get day of month from timestamp
+            pList.append(q.park)
+            pObj.append(q)
+    context = {"title": "Player Stats", 'games_list': gObj, 'park_list': pObj}
     template_name = "accounts/user-stats.html"
     return render(request, template_name, context)

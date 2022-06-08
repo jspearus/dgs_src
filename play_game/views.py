@@ -221,6 +221,25 @@ def game_save_view(request, name, day, hour, Minute):
     return render(request, template_name, context)
 
 
+def park_stat_view(request, park):
+    qs1 = []
+    qs2 = []
+    qs3 = []
+    qs = ParkStats.objects.filter(park=park)
+    park = ParkStats.objects.filter(park=park).first()
+    for q in qs:
+        if q.holeNumber < 10:
+            qs1.append(q)
+        elif q.holeNumber < 19:
+            qs2.append(q)
+        else:
+            qs3.append(q)
+    context = {'park_list': qs1, 'park_list_2': qs2, 'park_list_3': qs3,
+               'park': park, 'title': "Park Stats"}
+    template_name = 'accounts/park-stats.html'
+    return render(request, template_name, context)
+
+
 def game_list_view(request):
     #  todo make this a function
     # list out / search for objects
