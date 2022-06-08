@@ -37,10 +37,11 @@ def new_game_view(request, name):
         course = ScoreCardHoleCreator.objects.filter(
             card_name=name, holeNumber=hole.cur_hole).first()
         park_stat = get_park_stats(user, course, hole.cur_hole)
-
-        print(f"basket: {course.holeSub}")
-        print(f"holesub: {course.tee}")
-        print(f"curHole: {curHole}")
+        # todo for debug
+        # print(f"basket: {course.holeSub}")
+        # print(f"holesub: {course.tee}")
+        # print(f"curHole: {curHole}")
+        # todo for debug
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
