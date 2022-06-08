@@ -251,7 +251,8 @@ def game_list_view(request):
                 gList.append(str(q.timestamp.day)+"d")
                 gList.append(str(q.timestamp.hour)+'h')
                 gList.append(str(q.timestamp.minute)+'m')
-                gObj.append(q)
+                if len(gObj) < 3:
+                    gObj.append(q)
     template_name = 'home.html'
     context = {'games_list': gObj, 'cardName': cardName,
                'gameStarted': gameStarted}
