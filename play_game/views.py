@@ -322,13 +322,10 @@ def get_final_score(name, day, hour, minute):
 
 def new_game_creater(request, card):
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
-    print(f"card: {card}")
     hole = 1
     user = request.user
     if request.user.is_authenticated:
-        print(f"auth")
         if not GameCreator.objects.filter(game=card):
-            print(f"gamestart")
             game_status = CurrentGame.objects.create(user=user,
                                                      game=card,
                                                      progress="started",
