@@ -4,62 +4,65 @@
 <form method="POST">
     {% csrf_token %}
   <!-- Form for playing a new game -->
-  <h3 class=" text-light" align="center">Card: {{title}}
-  </h3>
-  <h4 class=" text-light" align="center">Park: {{park}}
-</h4>
-  <h3 class=" text-light" align="center">
-    <div>Hole:</div>
-    <a>
-      {{hole}}
-    </a>
-  </h3>
-  <div align="left" class="row justify-content-md-center">
-    <div class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="DN">-</button>
+  <div align="center" class="card bg-dark" style="width: 50rem;">
+    <div class="card-body">
+      <h3 class=" card-title text-light" align="center">Card: {{title}}
+      </h3>
+      <h4 class=" card-title text-light" align="center">Park: {{park}}
+      </h4>
+      <h3 class=" text-light" align="center">
+        <div>Hole:</div>
+        <a>
+          {{hole}}
+        </a>
+      </h3>
+      <div align="left" class="row justify-content-md-center">
+        <div class="col col-md-2">
+          <button class="btn btn-primary" name="NavHole" type="submit" value="DN">-</button>
+        </div>
+        <div>
+          <h5 class=" text-light" align="center">PAR: {{par}}
+        </div>
+        <div align="right" class="col col-md-2">
+          <button class="btn btn-primary" name="NavHole" type="submit" value="UP">+</button>
+        </div>
+      </div>
+      </h5>
+      <br /><br />
     </div>
     <div>
-      <h5 class=" text-light" align="center">PAR: {{par}}
+      <h5 class=" text-light" align="center">Distance: {{dist}} ft.
     </div>
-    <div align="right" class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="UP">+</button>
-    </div>
-  </div>
-  </h5>
-  <br /><br />
-  <div>
-    <h5 class=" text-light" align="center">Distance: {{dist}} ft.
-  </div>
-  <br /><br />
-  <div>
-  <div align="center" class="row justify-content-md-center">
-    <div class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="dn">-</button>
-    </div>
+    <br /><br />
     <div>
-      <h5 class=" text-light" align="center">Throws: {{throws}} <> Avg: {{avg}}
+    <div align="center" class="row justify-content-md-center">
+      <div class="col col-md-2">
+        <button class="btn btn-primary" name="NavHole" type="submit" value="dn">-</button>
+      </div>
+      <div>
+        <h5 class=" text-light" align="center">Throws: {{throws}} <> Avg: {{avg}}
+      </div>
+      <div align="center" class="col col-md-2">
+        <button class="btn btn-primary" name="NavHole" type="submit" value="up">+</button>
+      </div>
     </div>
-    <div align="center" class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="up">+</button>
+    <br /><br /><br />
+    <div align="center" class="row justify-content-md-center">
+      <div class="col col-md-2">
+        <h5 class=" text-light" align="left">Score: {{Score}}</h5>
+      </div>
+      <div class="col col-md-2">
+        <h5 class=" text-light" align="right">Cur. Score: {{CurScore}}</h5>
+      </div>
     </div>
-  </div>
-  <br /><br /><br />
-  <div align="center" class="row justify-content-md-center">
-    <div class="col col-md-2">
-      <h5 class=" text-light" align="left">Score: {{Score}}
-    </div>
-    <div class="col col-md-2">
-      <h5 class=" text-light" align="right">Cur. Score: {{CurScore}}
-    </div>
-  </div>
-  </h5>
-  <br />
-  <div align="left" class="row justify-content-md-center">
-    <div class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="Pre">Prev. Hole</button>
-    </div>
-    <div align="right" class="col col-md-2">
-      <button class="btn btn-primary" name="NavHole" type="submit" value="Next">Next Hole</button>
+    <br />
+    <div align="left" class="row justify-content-md-center">
+      <div class="col col-md-2">
+        <button class="btn btn-primary" name="NavHole" type="submit" value="Pre">Prev. Hole</button>
+      </div>
+      <div align="right" class="col col-md-2">
+        <button class="btn btn-primary" name="NavHole" type="submit" value="Next">Next Hole</button>
+      </div>
     </div>
   </div>
   <br /><br /><br />
@@ -79,4 +82,5 @@
 <div align="right">
   <a href="/" class="btn btn-primary btn-lg " tabindex="-1" role="button" aria-disabled="true">Back to home</a>
 </div>
+<br /><br />
 {% endblock %}
