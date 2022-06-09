@@ -7,15 +7,18 @@
 {%endif%}
 
 <div class='col-xs-2 col-md-3' align='left'>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Saved Games:
+    <div class="btn-group">
+        <button class="btn btn-secondary btn-lg" type="button">
+        Saved Games:
+        </button>
+        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Park Stats:</span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {% for game in games_list %}
-                <li class="badge badge-secondary" align='left' style="width: 200px">
-                    <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
-                    <p class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
+                <li>
+                    <a class='dropdown-item' href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
+                    {{game.card}} - {{game.timestamp|date:"M, j Y- f"}}
                     </a>
                 </li>
                 </br>
@@ -23,15 +26,18 @@
         </ul>
     </div>
     </br></br></br>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Park Stats:
+    <div class="btn-group"">
+        <button class="btn btn-secondary btn-lg" type="button">
+        Park Stats:
+        </button>
+        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Park Stats:</span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {% for park in park_list %}
-                <li class="badge badge-secondary" align='left' style="width: 200px">
-                    <a href='/park-stats/{{park.park}}'>
-                    <p class='text-light'>{{park.park}}</p>
+                <li>
+                    <a class='dropdown-item' href='/park-stats/{{park.park}}'>
+                    {{park.park}}
                     </a>
                 </li>
                 </br>
