@@ -181,6 +181,7 @@ def new_game_view(request, name):
                         gList.append(str(q.timestamp.minute)+'m')
                         if len(gObj) < 3:
                             gObj.append(q)
+            template_name = 'home.html'
             context = {'games_list': gObj, 'title': 'Game Saved',
                        'gameStarted': gameStarted}
             return render(request, template_name, context)
