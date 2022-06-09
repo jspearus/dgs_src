@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% csrf_token %}
-<div class='col-xs-2 col-md-6' align='left'>
+<div class='col-xs-2 col-md-6' align='center'>
     {% if title %}
         <h1 class='text-light'> {{title}} </h1>
     {%endif%}
@@ -25,13 +25,13 @@
         </ul>
     </div>
 </div>
-<div class='col-xs-2 col-md-6' align='center'>
-    <div align="right">
+<br /><br /><br /><br /><br /><br /><br /><br />
+<div class='row' align='center'>
+    <div class='col-xs-2 col-md-4' align="right">
         <a href="/newcard" class="btn btn-primary btn-lg " 
         tabindex="-1" role="button" aria-disabled="true">Create New Card</a>
     </div>
-    </br></br>
-    <div align="right">
+    <div class='col-xs-2 col-md-4' align="center">
         <a href="/" class="btn btn-primary btn-lg " 
         tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
     </div>
