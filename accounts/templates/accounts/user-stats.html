@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="visually-hidden">Park Stats:</span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul class="dropdown-menu" style="overflow-y:auto; max-height:80vh"  aria-labelledby="dropdownMenuButton1">
             {% for game in games_list %}
                 <li>
                     <a class='dropdown-item' href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
@@ -33,7 +33,7 @@
         <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="visually-hidden">Park Stats:</span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul class="dropdown-menu" style="overflow-y:auto; max-height:80vh"  aria-labelledby="dropdownMenuButton1">
             {% for park in park_list %}
                 <li>
                     <a class='dropdown-item' href='/park-stats/{{park.park}}'>
