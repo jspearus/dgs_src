@@ -1,27 +1,40 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 {% extends "base.html" %}
 {% block content %}
 {% csrf_token %}
+<div class='col-xs-2 col-md-6' align='left'>
     {% if title %}
-        <h1> {{title}} </h1>
+        <h1 class='text-light'> {{title}} </h1>
     {%endif%}
-    <div class='col-xs-2 col-md-3' align='left'>
-        <div class='text-light'><h2>Card List:</h2></div>
-          <ul class="list-group list-group-flush"  id="parks">
-          {% for card in card_list %}
-            <li class="badge badge-secondary text-light" style="width: 200px">
-                <a href="/new-game/{{card}}"><h5> {{card}}</h5></li>
-            </br> 
-          {% endfor %}
+    <div class="btn-group">
+        <button class="btn btn-secondary btn-lg" type="button">
+        Card List:
+        </button>
+        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">lsit</span>
+        </button>
+        <ul class="dropdown-menu" style="overflow-y:auto; max-height:80vh"  aria-labelledby="dropdownMenuButton1">
+            {% for card in card_list %}
+                <li>
+                    <a class='dropdown-item' href='/new-game/{{card}}'> 
+                    {{card}}
+                    </a>
+                </li>
+                </br>
+            {% endfor %}
         </ul>
-        </div>
-<div align="right">
-    <a href="/newcard" class="btn btn-primary btn-lg " 
-    tabindex="-1" role="button" aria-disabled="true">Create New Card</a>
+    </div>
 </div>
-</br></br>
-<div align="right">
-    <a href="/" class="btn btn-primary btn-lg " 
-    tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+<div class='col-xs-2 col-md-6' align='center'>
+    <div align="right">
+        <a href="/newcard" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">Create New Card</a>
+    </div>
+    </br></br>
+    <div align="right">
+        <a href="/" class="btn btn-primary btn-lg " 
+        tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+    </div>
 </div>
 
 {% endblock %}
