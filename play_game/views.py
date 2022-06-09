@@ -128,8 +128,9 @@ def new_game_view(request, name):
             gList = []
             gObj = []
             gameStarted = 'false'
-            qs = GameSave.objects.all().order_by('-timestamp')
             if request.user.is_authenticated:
+                qs = GameSave.objects.filter(
+                    user=request.user).order_by('-timestamp')
                 for q in qs:
                     # todo for debug
                     # print(f"DAY: {q.timestamp.day}")
@@ -161,8 +162,9 @@ def new_game_view(request, name):
             gList = []
             gObj = []
             gameStarted = 'false'
-            qs = GameSave.objects.all().order_by('-timestamp')
             if request.user.is_authenticated:
+                qs = GameSave.objects.filter(
+                    user=request.user).order_by('-timestamp')
                 for q in qs:
                     # todo for debug
                     # print(f"DAY: {q.timestamp.day}")
@@ -213,8 +215,8 @@ def game_save_view(request, name, day, hour, Minute):
     qs1 = []
     qs2 = []
     qs3 = []
-    qs = GameSave.objects.filter(card=name)
-    game = GameSave.objects.filter(card=name).first()
+    qs = GameSave.objects.filter(user=request.user, card=name)
+    game = GameSave.objects.filter(user=request.user, card=name).first()
     #  remove leading zero from single digit minute
     if int(Minute) < 10:
         new_minute = list(Minute)
@@ -241,8 +243,8 @@ def park_stat_view(request, park):
     qs1 = []
     qs2 = []
     qs3 = []
-    qs = ParkStats.objects.filter(park=park)
-    park = ParkStats.objects.filter(park=park).first()
+    qs = ParkStats.objects.filter(user=request.user, park=park)
+    park = ParkStats.objects.filter(user=request.user, park=park).first()
     for q in qs:
         if q.holeNumber < 10:
             qs1.append(q)
@@ -271,8 +273,8 @@ def game_list_view(request):
         else:
             gameStarted = 'false'
     # queryset -> list of python objects
-    qs = GameSave.objects.all().order_by('-timestamp')
     if request.user.is_authenticated:
+        qs = GameSave.objects.filter(user=request.user).order_by('-timestamp')
         for q in qs:
             # todo for debug
             # print(f"DAY: {q.timestamp.day}")

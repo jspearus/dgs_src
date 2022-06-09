@@ -51,8 +51,9 @@ def save_game_stats(request):
     pObj = []
     cardName = ''
     # queryset -> list of python objects
-    qs = GameSave.objects.all().order_by('-timestamp')
-    qs2 = ParkStats.objects.all()  # queryset -> list of python objects
+    qs = GameSave.objects.filter(user=request.user).order_by('-timestamp')
+    # queryset -> list of python objects
+    qs2 = ParkStats.objects.filter(user=request.user)
     for q in qs:
         if q.card and (str(q.timestamp.day)+"d") and (str(q.timestamp.hour)+'h') and (str(q.timestamp.minute)+'m')not in gList:
             #  + str(q.timestamp.day) - used to get day of month from timestamp
