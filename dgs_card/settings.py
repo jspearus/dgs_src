@@ -17,15 +17,16 @@ warnings.filterwarnings(
     "ignore", message="No directory at", module="whitenoise.base")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+SECRET=os.environ.get('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = os.environ.get(
+    # 'DJANGO_SECRET_KEY', 'grkb2t18&mt%aqe+5a(74&x*y=@*oi32^4v*yy$@f(3snd3)ta')
 SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY', 'grkb2t18&mt%aqe+5a(74&x*y=@*oi32^4v*yy$@f(3snd3)ta')
-
+    'DJANGO_SECRET_KEY', SECRET)
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
