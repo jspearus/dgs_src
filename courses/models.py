@@ -34,4 +34,4 @@ class HoleCreater(models.Model):
     distance = models.IntegerField(default=250)
 
     def __str__(self):
-        return self.parkName + str(self.holeNumber)
+        return self.parkName + '-'+str(self.holeNumber) + str(self.holeSub) + str(self.basket) + str(self.tee)

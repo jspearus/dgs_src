@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 from scorecards.models import ScoreCardCreator, ScoreCardHoleCreator
+from courses.models import HoleCreater
 from accounts.models import ParkStats
 from .models import GameCreator, CurrentGame, GameSave
 # Create your views here.
@@ -24,13 +25,14 @@ def new_game_select_view(request):
 
 
 def new_game_view(request, name):
-    park = ScoreCardCreator.objects.filter(cardName=name).first()
+    parkName = ScoreCardCreator.objects.filter(cardName=name).first()
     user = request.user
     gameOver = False
     title = name
 
-    if park:
+    if parkName:
         new_game_creater(request, name)
+        hole_list = HoleCreater.objects.filter(parkName=parkName.parkName)
         hole = CurrentGame.objects.filter(user=user, game=name).first()
         curHole = GameCreator.objects.filter(
             game=name, holeNumber=hole.cur_hole).first()
@@ -51,8 +53,8 @@ def new_game_view(request, name):
 
         if 'Next' == request.POST.get('NavHole'):
             hole.cur_hole = hole.cur_hole + 1
-            if hole.cur_hole > park.numOfHoles:
-                hole.cur_hole = park.numOfHoles
+            if hole.cur_hole > parkName.numOfHoles:
+                hole.cur_hole = parkName.numOfHoles
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, holeNumber=hole.cur_hole).first()
@@ -186,14 +188,14 @@ def new_game_view(request, name):
                        'gameStarted': gameStarted}
             return render(request, template_name, context)
 
-        if hole.cur_hole == park.numOfHoles:
+        if hole.cur_hole == parkName.numOfHoles:
             gameOver = True
     template_name = 'play_game/new-game.html'
-    context = {'title': title, 'park': park.parkName,
-               'hole': hole.cur_hole, 'par': curHole.par,
+    context = {'title': title, 'park': parkName.parkName,
+               'hole_list': hole_list,
+               'hole': curHole,
                'avg': round(park_stat.throws/park_stat.timesPlayed, 1),
-               'throws': curHole.throws,
-               'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
+               'throws': curHole.throws, 'dist': curHole.distance, 'Score': curHole.throws - curHole.par,
                'CurScore': get_current_score(name), 'GameOver': gameOver}
     return render(request, template_name, context)
 

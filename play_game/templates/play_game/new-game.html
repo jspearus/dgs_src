@@ -4,14 +4,31 @@
 <form method="POST">
     {% csrf_token %}
   <!-- Form for playing a new game -->
+  <h3 class=" p-2 text-light" align="left">Card: {{title}}
+  </h3>
+  <h4 class=" p-2 text-light" align="left">Park: {{park}}
+  </h4>
+  <h4 class=" p-2 text-light" align="left">Hole: {{hole.hole}}
+  </h4>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" style="width: 15rem;"type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Hole Select
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      {% for hole in hole_list %}
+            <li>
+                <a class='dropdown-item' href='/new-game/{{hole}}'> 
+                {{hole.holeNumber}}{{hole.holeSub}}: {{hole.basket}} - {{hole.tee}}
+                </a>
+            </li>
+            </br>
+        {% endfor %}
+    </ul>
+  </div>
   <div align="center" class="card bg-secondary" style="width: 25rem;">
     <div class="card-body">
-      <h3 class=" card-title text-light" align="center">Card: {{title}}
-      </h3>
-      <h4 class=" card-title text-light" align="center">Park: {{park}}
-      </h4>
       <h4 class=" text-light" align="center">
-        Hole: {{hole}}
+        Hole: {{hole.holeNumber}}{{hole.holeSub}} - Basket: {{hole.basket}} - Tee: {{hole.tee}}
       </h4>
       <br />
       <div align="left" class="row justify-content-md-center">
@@ -19,7 +36,7 @@
           <button class="btn btn-primary" name="NavHole" type="submit" value="DN">-</button>
         </div>
         <div>
-          <h5 class=" text-light" align="center">PAR: {{par}}
+          <h5 class=" text-light" align="center">PAR: {{hole.par}}
         </div>
         <div align="right" class="col col-md-2">
           <button class="btn btn-primary" name="NavHole" type="submit" value="UP">+</button>
@@ -44,26 +61,25 @@
         <button class="btn btn-primary" name="NavHole" type="submit" value="up">+</button>
       </div>
     </div>
-    <br />
-    <div align="center" class="row justify-content-md-center">
-      <div class="col col-md-4">
-        <h6 class=" text-light" align="left">Score: {{Score}}</h6>
-      </div>
-      <div class="col col-md-4">
-        <h6 class=" text-light" align="right">Cur. Score: {{CurScore}}</h6>
-      </div>
-    </div>
-    <br />
+    <br /><br /><br />
     <div align="left" class="row justify-content-md-center">
-      <div class="col col-md-4">
+      <div class="col col-md-5">
         <button class="btn btn-primary" name="NavHole" type="submit" value="Pre">Prev. Hole</button>
       </div>
-      <div align="right" class="col col-md-4">
+      <div align="right" class="col col-md-5">
         <button class="btn btn-primary" name="NavHole" type="submit" value="Next">Next Hole</button>
       </div>
     </div>
   </div>
-  <br /><br /><br />
+  <div align="center" class="row justify-content-md-center">
+    <div class="col col-md-5">
+      <h6 class=" text-light" align="left">Score: {{Score}}</h6>
+    </div>
+    <div class="col col-md-5">
+      <h6 class=" text-light" align="right">Cur. Score: {{CurScore}}</h6>
+    </div>
+  </div>
+  <br />
   {% if GameOver %}
   <div align="left" class="row justify-content-md-center">
     <div class="col col-md-4">
@@ -80,5 +96,5 @@
 <div class="col col-md-12" align="right">
   <a href="/" class="btn btn-primary btn-lg " tabindex="-1" role="button" aria-disabled="true">Back to home</a>
 </div>
-<br /><br />
+<br />
 {% endblock %}
