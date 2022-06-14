@@ -1,48 +1,44 @@
 {% extends "base.html"%}
 {% block title %}NewGame{% endblock %}
 {% block content %}
-<form method="POST">
+<form method="POST" action="">
     {% csrf_token %}
   <!-- Form for playing a new game -->
-  <h3 class=" p-2 text-light" align="left">Card: {{title}}
+  <h3 class=" p-2 text-light" align="left">Card: {{title}} - Park: {{park}}
   </h3>
-  <h4 class=" p-2 text-light" align="left">Park: {{park}}
-  </h4>
   <h4 class=" p-2 text-light" align="left">Hole: {{hole.hole}}
   </h4>
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" style="width: 15rem;"type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      Hole Select
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      {% for hole in hole_list %}
-            <li>
-                <a class='dropdown-item' href='/new-game/{{hole}}'> 
-                {{hole.holeNumber}}{{hole.holeSub}}: {{hole.basket}} - {{hole.tee}}
-                </a>
-            </li>
-            </br>
-        {% endfor %}
-    </ul>
+  <div align="left" class="row justify-content-md">
+    <div align="left" class=" col col-md-4 form-group bg-primary">
+      <label for="holeSelect">Hole Select</label>
+      <select class="form-control bg-secondary text-light" name="holeSelect" id="holeSelect">
+          {% for h in hole_list %}
+              <option class=" text-light" value={{h.id}}>{{h.holeNumber}}{{h.holeSub}}: {{h.basket}} - {{h.tee}}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div align="right" class="col col-md-3">
+      <button align="right" type="submit" name="NavHole" value="Update" class="btn btn-primary">Update Hole</button>
+    </div>
   </div>
+  <br />
   <div align="center" class="card bg-secondary" style="width: 25rem;">
     <div class="card-body">
-      <h4 class=" text-light" align="center">
+      <h5 class=" text-light" align="center">
         Hole: {{hole.holeNumber}}{{hole.holeSub}} - Basket: {{hole.basket}} - Tee: {{hole.tee}}
-      </h4>
+      </h5>
       <br />
       <div align="left" class="row justify-content-md-center">
-        <div class="col col-md-2">
+        <div class="col col-md-4">
           <button class="btn btn-primary" name="NavHole" type="submit" value="DN">-</button>
         </div>
         <div>
-          <h5 class=" text-light" align="center">PAR: {{hole.par}}
+          <h4 class=" text-light" align="center">PAR: {{hole.par}}</h4>
         </div>
-        <div align="right" class="col col-md-2">
+        <div align="right" class="col col-md-4">
           <button class="btn btn-primary" name="NavHole" type="submit" value="UP">+</button>
         </div>
       </div>
-      </h5>
       <br />
     </div>
     <div>

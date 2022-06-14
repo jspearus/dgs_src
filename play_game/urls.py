@@ -7,7 +7,8 @@ from .views import (
     new_game_select_view,
     new_game_view,
     game_save_view,
-    park_stat_view
+    park_stat_view,
+
 )
 
 urlpatterns = [

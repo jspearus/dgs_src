@@ -24,6 +24,9 @@ class GameCreator(models.Model):
     par = models.IntegerField(blank=False, null=False)
     timestamp = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['game', 'hole', 'holeSub', '-timestamp']
+
     def __str__(self):
         return str(self.user) + self.game + str(self.hole)
 
