@@ -33,5 +33,8 @@ class HoleCreater(models.Model):
     par = models.IntegerField(default=3)
     distance = models.IntegerField(default=250)
 
+    class Meta:
+        ordering = ['parkName', 'holeNumber', 'holeSub', 'basket']
+
     def __str__(self):
         return self.parkName + '-'+str(self.holeNumber) + str(self.holeSub) + str(self.basket) + str(self.tee) + str(self.id)
