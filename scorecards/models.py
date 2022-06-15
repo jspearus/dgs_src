@@ -23,6 +23,7 @@ class ScoreCardHoleCreator(models.Model):
         max_length=140, blank=False, null=False)
     park_name = models.CharField(
         max_length=140)
+    hole = models.IntegerField(blank=False, null=False)
     holeNumber = models.IntegerField(blank=False, null=False)
     holeSub = models.CharField(max_length=1, blank=True)
     basket = models.CharField(max_length=10, blank=True)
@@ -31,7 +32,7 @@ class ScoreCardHoleCreator(models.Model):
     par = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return self.card_name + str(self.holeNumber)
+        return self.card_name + "-" + str(self.hole) + "-" + str(self.holeNumber)
 
     class Meta:
-        ordering = ['card_name', 'holeNumber', 'holeSub']
+        ordering = ['card_name', 'hole', 'holeNumber', 'holeSub']

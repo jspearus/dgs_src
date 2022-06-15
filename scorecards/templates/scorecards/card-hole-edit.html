@@ -6,41 +6,60 @@
     {% if title %}
         <h1> {{title}} </h1>
     {%endif%}
-<form method="POST" action="" enctype='multipart/form-data'> {% csrf_token %}
+<form method="POST"  enctype='multipart/form-data'> {% csrf_token %}
     <h1 class='text-light'> Edit Hole </h1>
+    <div align="left" class="row justify-content-md">
+        <div align="left" class=" col col-md-4 form-group bg-primary">
+            <label for="holeSelect">Hole Select</label>
+            <select class="form-control bg-secondary text-light" name="holeSelect" id="holeSelect">
+                {% for h in hole_list %}
+                    <option class=" text-light" value={{h.id}}>{{h.holeNumber}}{{h.holeSub}}: {{h.basket}} - {{h.tee}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div align="right" class="col col-md-3">
+            <button align="right" type="submit" name="NavHole" value="UpdateHole" class="btn btn-primary">
+                Change Hole</button>
+        </div>
+    </div>
     {% comment %} {{ form.as_p }} {% endcomment %}
-    <div class="form-group text-light">
-        <label> Card Name </label>
-        {{ form.card_name}}
+    <div class="mb-3 row">
+        <label for="card_name" class="text-light col-sm-3 col-form-label">Card Name : </label>
+          <input style="width: 12rem;" type="text" class="text-dark form-control" name="card_name" id="card_name" value={{form.card_name}}>
     </div>
-    <div class="form-group text-light">
-        <label> Hole Number </label>
-        {{ form.holeNumber }}
+    <div class="mb-3 row">
+        <label for="hole" class="text-light col-sm-3 col-form-label">Hole :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="hole" id="hole" value={{form.hole}}>
     </div>
-    <div class="form-group text-light">
-        <label> Hole Sub Number </label>
-        {{ form.holeSub }}
+    <div class="mb-3 row">
+        <label for="holeNum" class="text-light col-sm-3 col-form-label">Hole Number :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="holeNum" id="holeNum" value={{form.holeNumber}}>
     </div>
-    <div class="form-group text-light">
-        <label> Basket </label>
-        {{ form.basket }}
+    <div class="mb-3 row">
+        <label for="holeSub" class="text-light col-sm-3 col-form-label">Hole Sub :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="holeSub" id="holeSub" value={{form.holeSub}}>
     </div>
-    <div class="form-group text-light">
-        <label> Tee </label>
-        {{ form.tee }}
+    <div class="mb-3 row">
+        <label for="basket" class="text-light col-sm-3 col-form-label">Basket :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="basket" id="basket" value={{form.basket}}>
     </div>
-    <div class="form-group text-light">
-        <label> Distance </label>
-        {{ form.distance }}
+    <div class="mb-3 row">
+        <label for="tee" class="text-light col-sm-3 col-form-label">Tee :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="tee" id="tee" value={{form.tee}}>
     </div>
-    <div class="form-group text-light">
-        <label> Par</label>
-        {{ form.par }}
+    <div class="mb-3 row">
+        <label for="distance" class="text-light col-sm-3 col-form-label">Distance :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="distance" id="distance" value={{form.distance}}>
     </div>
-    <button type="submit">Update</button>
+    <div class="mb-3 row">
+        <label for="par" class="text-light col-sm-3 col-form-label">Par :</label>
+          <input style="width: 10rem;" type="text" class="text-dark form-control" name="par" id="par" value={{form.par}}>
+    </div>
+    <button class="btn btn-primary btn-lg"  name="NavHole" value="update" type="submit">
+        Add Hole</button>
 </form>
 <div align="right">
-    <a href="/card/{{title}}" class="btn btn-primary btn-lg " 
+    <a href="/card/{{form.card_name}}" class="btn btn-primary btn-lg" 
     tabindex="-1" role="button" aria-disabled="true">Back to Card</a>
 </div>
 

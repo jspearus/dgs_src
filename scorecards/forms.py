@@ -12,6 +12,7 @@ class ScoreCardCreatorForm(forms.Form):
 class ScoreCardHoleCreatorForm(forms.Form):
     card_name = forms.CharField(max_length=140, required=True)
     park_name = forms.CharField(max_length=140, required=True)
+    hole = forms.IntegerField(required=True)
     holeNumber = forms.IntegerField()
     holeSub = forms.CharField(max_length=1, required=False)
     basket = forms.CharField(max_length=10)
@@ -31,5 +32,5 @@ class ScoreCardHoleCreatorModelForm(forms.ModelForm):
 
     class Meta:
         model = ScoreCardHoleCreator
-        fields = ['card_name', 'park_name', 'holeNumber', 'holeSub', 'basket',
+        fields = ['card_name', 'park_name', 'hole', 'holeNumber', 'holeSub', 'basket',
                   'tee', 'distance', 'par']

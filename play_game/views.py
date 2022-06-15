@@ -37,7 +37,7 @@ def new_game_view(request, name):
         curHole = GameCreator.objects.filter(
             hole=hole.cur_hole).first()
         course = ScoreCardHoleCreator.objects.filter(
-            card_name=name, holeNumber=hole.cur_hole).first()
+            card_name=name, hole=curHole.hole).first()
         park_stat = get_park_stats(user, course, hole.cur_hole)
         # todo for debug
         # print(f"basket: {course.holeSub}")
@@ -48,7 +48,7 @@ def new_game_view(request, name):
         print(f"hole Id: {request.POST.get('holeSelect')}")
         print(f"Btn Id: {request.POST.get('NavHole')}")
         course = ScoreCardHoleCreator.objects.filter(
-            card_name=name, holeNumber=hole.cur_hole).first()
+            card_name=name, hole=curHole.hole).first()
         park_stat = get_park_stats(user, course, hole.cur_hole)
 
         if 'Next' == request.POST.get('NavHole'):
@@ -58,6 +58,8 @@ def new_game_view(request, name):
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, hole=hole.cur_hole).first()
+            course = ScoreCardHoleCreator.objects.filter(
+                card_name=name, hole=hole.cur_hole).first()
             park_stat = get_park_stats(user, course, hole.cur_hole)
 
         elif 'Pre' == request.POST.get('NavHole'):
@@ -67,6 +69,8 @@ def new_game_view(request, name):
             hole.save()
             curHole = GameCreator.objects.filter(
                 game=name, hole=hole.cur_hole).first()
+            course = ScoreCardHoleCreator.objects.filter(
+                card_name=name, hole=hole.cur_hole).first()
             park_stat = get_park_stats(user, course, hole.cur_hole)
 
         elif 'up' == request.POST.get('NavHole'):
@@ -222,8 +226,8 @@ def update_game_view(request, game, gHole,  hole):
     curHole = GameCreator.objects.filter(
         game=game, hole=gHole).first()
     course = ScoreCardHoleCreator.objects.filter(
-        card_name=game, holeNumber=curGamehole.cur_hole).first()
-    park_stat = get_park_stats(user, course, curGamehole.cur_hole)
+        card_name=game, hole=curHole.hole).first()
+    park_stat = get_park_stats(user, course, course.holeNumber)
     hole_list = HoleCreater.objects.filter(parkName=curHole.park)
     user = request.user
     gameOver = False

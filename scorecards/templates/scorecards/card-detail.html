@@ -10,91 +10,33 @@
         <div class='col-xs-3 col-md-5' align="left">
             <h5 class="list-group-item bg-secondary text-light" style="width: 300px">Card: {{name}}</h5>
             <h6 class="list-group-item bg-secondary text-light" style="width: 300px">Park: {{park}} </h6>
-            {% comment %} <ul class="list-group list-group-flush" id="cards">
-                {% for c in course_list %}
-                <li class="list-group-item bg-secondary text-light" style="width: 200px">
-                        <h5> Hole: {{c.holeNumber}}-{{c.holeSub}}</h5>
-                        <h6> Tee: {{c.tee}} - basket: {{c.basket}}</h6>
-                        <h6> Dist: {{c.distance}}</h6>
-                        <h6> Par: {{c.par}}</h6>
-                    </li>
-                {% endfor %}
-            </ul> {% endcomment %}
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th class=" text-light" scope="row">Hole # </th>
-                    {% for c in course_list %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class=" text-light" scope="row">Dist: </td>
-                {% for c in course_list %}
-                    <td class=" text-light" scope="row">{{c.distance}}</td>
-                {% endfor %}
-                </tr>
-                <td class=" text-light" scope="row">Par: </td>
-                {% for c in course_list %}
-                    <td class=" text-light" scope="row">{{c.par}}</td>
-                {% endfor %}
-                </tbody>
-            </table>
-        </br>
-        {% if course_list_2 %}
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th class=" text-light" scope="row">Hole # </th>
-                        {% for c in course_list_2 %}
-                        <th class=" text-light" scope="row">{{c.holeNumber}}</th>
-                        {% endfor %}
+                      <th scope="col">#</th>
+                      <th scope="col">Hole</th>
+                      <th scope="col">Dist</th>
+                      <th scope="col">Par</th>
                     </tr>
-                </thead>
+                  </thead>
                 <tbody>
+                {% for c in course_list %}
                     <tr>
-                        <td class=" text-light" scope="row">Dist: </td>
-                    {% for c in course_list_2 %}
-                        <td class=" text-light" scope="row">{{c.distance}}</td>
-                    {% endfor %}
+                        <th class="text-light">{{c.hole}}</th>
+                        <th class="text-light">{{c.holeNumber}}</th>
+                        <td class=" text-light">{{c.distance}}</td>
+                        <td class=" text-light">{{c.par}}</td>
+                        <td >
+                        <a href="/card-edit/{{name}}/{{c.hole}}">edit</a>
+                        </td>
                     </tr>
-                    <td class=" text-light" scope="row">Par: </td>
-                    {% for c in course_list_2 %}
-                        <td class=" text-light" scope="row">{{c.par}}</td>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {%endif%}
-        </br>
-        {% if course_list_3%}
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                    <th class=" text-light" scope="row">Hole # </th>
-                    {% for c in course_list_3 %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class=" text-light" scope="row">Dist: </td>
-                {% for c in course_list_3 %}
-                    <td class=" text-light" scope="row">{{c.distance}}</td>
-                {% endfor %}
-                </tr>
-                <td class=" text-light" scope="row">Par: </td>
-                {% for c in course_list_3 %}
-                    <td class=" text-light" scope="row">{{c.par}}</td>
                 {% endfor %}
                 </tbody>
             </table>
-        {%endif%}
         </div>
         <div class='col-xs-2 col-md-3' align="right">
-            <a href="/card-edit/{{name}}/1" type="button" class="btn btn-primary btn-md" 
+            <a href="/card-edit/{{name}}/99" type="button" class="btn btn-primary btn-md" 
               aria-disabled="true">Add Hole</a>
         </br></br>
              <a href="/cards" class="btn btn-primary btn-md" 

@@ -34,7 +34,7 @@ def course_detail_view(request, name):
 @login_required
 def hole_editor_view(request, name, hole):
     # queryset -> list of python objects
-    qs = HoleCreater.objects.get(parkName=name, holeNumber=hole)
+    qs = HoleCreater.objects.get(parkName=name, id=hole)
     form = HoleCreateModelForm(request.POST or None, instance=qs)
     form.fields['parkName'].widget.attrs['value'] = name
     form.fields['parkName'].widget.attrs['readonly'] = True

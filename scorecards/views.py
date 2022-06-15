@@ -34,10 +34,10 @@ def create_scorecard_view(request):
             obj.numOfHoles = numOfHoles
             obj.save()
             for x in range(int(numOfHoles)):
-                qs = HoleCreater.objects.get(
-                    parkName=parkName, holeNumber=x+1)
+                qs = HoleCreater.objects.filter(
+                    parkName=parkName, holeNumber=x+1).first()
                 record = ScoreCardHoleCreator.objects.create(
-                    card_name=cardName, park_name=parkName, holeNumber=qs.holeNumber,
+                    card_name=cardName, park_name=parkName, hole=x+1, holeNumber=qs.holeNumber,
                     holeSub=qs.holeSub, basket=qs.basket, tee=qs.tee,
                     distance=qs.distance, par=qs.par
                 )
@@ -64,19 +64,12 @@ def list_scorecards_view(request):
 
 @login_required
 def detail_scorecard_view(request, card):
-    qs1 = []
-    qs2 = []
-    qs3 = []
+    course_list = []
     qs = ScoreCardHoleCreator.objects.filter(card_name=card)
     park = ScoreCardCreator.objects.filter(cardName=card).first()
     for q in qs:
-        if q.holeNumber < 10:
-            qs1.append(q)
-        elif q.holeNumber < 19:
-            qs2.append(q)
-        else:
-            qs3.append(q)
-    context = {'course_list': qs1, 'course_list_2': qs2, 'course_list_3': qs3, 'name': card,
+        course_list.append(q)
+    context = {'course_list': course_list, 'name': card,
                'park': park.parkName, 'title': 'Hole Updated'}
     template_name = 'scorecards/card-detail.html'
     return render(request, template_name, context)
@@ -84,18 +77,69 @@ def detail_scorecard_view(request, card):
 
 @login_required
 def edit_scorecard_view(request, card, hole):
-    qs = ScoreCardHoleCreator.objects.all().filter(card_name=card, holeNumber=hole)
-    form = ScoreCardHoleCreatorModelForm(request.POST or None, instance=qs)
-    form.fields['card_name'].widget.attrs['value'] = card
-    form.fields['card_name'].widget.attrs['readonly'] = True
-    if form.is_valid():
-        obj = form.save(commit=False)
-        obj.save()
-        form = ScoreCardHoleCreatorModelForm()
+    # todo make custom form to edit scorecards..........
+    if request.method == 'POST':
+        if hole == 99:
+            park = ScoreCardHoleCreator.objects.filter(
+                card_name=card, hole=1).first()
+            holeNum = ScoreCardCreator.objects.filter(
+                parkName=park.park_name).first()
+            hole = holeNum.numOfHoles+1
+
+        if 'UpdateHole' == request.POST.get('NavHole'):
+            newHole = request.POST.get('holeSelect')
+            park = HoleCreater.objects.filter(id=newHole).first()
+            print(f"newH: {park}")
+            # todo needs to be in update if block below
+            park.hole = request.POST.get('hole')
+            park.card_name = card
+            hole_list = HoleCreater.objects.filter(parkName=park.parkName)
+            print(f"PArk: {park}")
+
+        if 'update' == request.POST.get('NavHole'):
+            newHole = request.POST.get('holeSelect')
+            newH = HoleCreater.objects.filter(id=newHole).first()
+            hole_list = HoleCreater.objects.filter(parkName=newH.parkName)
+            print(f"newH: {newH}")
+            # todo needs to be in update if block below
+            park = ScoreCardHoleCreator.objects.filter(
+                park_name=newH.parkName, hole=request.POST.get('hole')).update(
+                    holeNumber=request.POST.get('holeNum'),
+                    holeSub=request.POST.get('holeSub'),
+                    basket=request.POST.get('basket'),
+                    distance=request.POST.get('distance'),
+                    tee=request.POST.get('tee'),
+                    par=request.POST.get('par'))
+            park = ScoreCardHoleCreator.objects.filter(
+                park_name=newH.parkName, hole=request.POST.get('hole')).first()
+            park.card_name = request.POST.get('card_name')
+
+        title = 'Hole Updated!'
+        template_name = 'scorecards/card-hole-edit.html'
+        context = {'form': park, 'title': title, 'hole_list': hole_list}
+
+        return render(request, template_name, context)
+
+    if not hole == 99:
+        park = ScoreCardHoleCreator.objects.filter(
+            card_name=card, hole=hole).first()
+        hole_list = HoleCreater.objects.filter(parkName=park.park_name)
+        holeNum = ScoreCardCreator.objects.filter(
+            parkName=park.park_name).first()
+        addHole = park.hole
+
+    else:
+        park = ScoreCardHoleCreator.objects.filter(
+            card_name=card, hole=1).first()
+        holeNum = ScoreCardCreator.objects.filter(
+            parkName=park.park_name).first()
+        hole_list = HoleCreater.objects.filter(parkName=park.park_name)
+        addHole = holeNum.numOfHoles+1
+        print(f"Hole Numer: {addHole}")
+        park.hole = addHole
+
     title = card
     template_name = 'scorecards/card-hole-edit.html'
-    context = {'form': form, 'title': title}
-    if request.method == 'POST':
-        # print(parkName)
-        pass
+    context = {'form': park, 'title': title, 'hole_list': hole_list}
+
     return render(request, template_name, context)
