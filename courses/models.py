@@ -27,8 +27,8 @@ class HoleCreater(models.Model):
     parkName = models.CharField(
         max_length=140, blank=False, null=False)
     holeNumber = models.IntegerField()
-    holeSub = models.CharField(max_length=1, default='0')
-    basket = models.CharField(max_length=10, default='0')
+    holeSub = models.CharField(max_length=2)
+    basket = models.CharField(max_length=10)
     tee = models.CharField(max_length=10, default='White')
     par = models.IntegerField(default=3)
     distance = models.IntegerField(default=250)
