@@ -66,6 +66,7 @@ def course_list_view(request):
 
 @login_required
 def create_park_view(request):
+    title = ''
     if request.method == 'POST':
         form = ParkCreateModelForm(request.POST)
         name = form['park_name'].value()
@@ -77,13 +78,14 @@ def create_park_view(request):
             record = HoleCreater.objects.create(
                 parkName=name, holeNumber=x+1
             )
+        title = "Park Created!"
     form = ParkCreateModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
         form = ParkCreateModelForm()
     template_name = 'courses/parkform.html'
-    context = {'form': form}
+    context = {'form': form, 'title': title}
     return render(request, template_name, context)
 
 
