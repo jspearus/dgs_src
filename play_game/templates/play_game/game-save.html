@@ -29,11 +29,17 @@
                     <tr>
                     <th class=" text-light" scope="row">Hole # </th>
                     {% for c in course_list %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    <th class=" text-light" scope="row">{{c.hole}}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td class=" text-light" scope="row">Hole Number: </td>
+                {% for c in course_list %}
+                    <td class=" text-light" scope="row">{{c.holeNumber}}</td>
+                {% endfor %}
+                </tr>
                 <tr>
                     <td class=" text-light" scope="row">Dist: </td>
                 {% for c in course_list %}
@@ -65,11 +71,17 @@
                         <tr>
                         <th class=" text-light" scope="row">Hole # </th>
                         {% for c in course_list_2 %}
-                        <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                        <th class=" text-light" scope="row">{{c.hole}}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td class=" text-light" scope="row">Hole Number: </td>
+                    {% for c in course_list_2 %}
+                        <td class=" text-light" scope="row">{{c.holeNumber}}</td>
+                    {% endfor %}
+                    </tr>
                     <tr>
                         <td class=" text-light" scope="row">Dist: </td>
                     {% for c in course_list_2 %}
@@ -102,11 +114,17 @@
                     <tr>
                     <th class=" text-light" scope="row">Hole # </th>
                     {% for c in course_list_3 %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    <th class=" text-light" scope="row">{{c.hole}}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td class=" text-light" scope="row">Hole Number: </td>
+                {% for c in course_list_3 %}
+                    <td class=" text-light" scope="row">{{c.holeNumber}}</td>
+                {% endfor %}
+                </tr>
                 <tr>
                     <td class=" text-light" scope="row">Dist: </td>
                 {% for c in course_list_3 %}

@@ -112,7 +112,25 @@ def edit_scorecard_view(request, card, hole):
                     par=request.POST.get('par'))
             park = ScoreCardHoleCreator.objects.filter(
                 park_name=newH.parkName, hole=request.POST.get('hole')).first()
-            park.card_name = request.POST.get('card_name')
+            if park:
+                park.card_name = request.POST.get('card_name')
+            else:
+                park = ScoreCardHoleCreator.objects.create(
+                    park_name=newH.parkName,
+                    card_name=request.POST.get('card_name'),
+                    hole=request.POST.get('hole'),
+                    holeNumber=request.POST.get('holeNum'),
+                    holeSub=request.POST.get('holeSub'),
+                    basket=request.POST.get('basket'),
+                    distance=request.POST.get('distance'),
+                    tee=request.POST.get('tee'),
+                    par=request.POST.get('par'))
+                update = ScoreCardCreator.objects.filter(
+                    parkName=newH.parkName, cardName=request.POST.get('card_name')).first()
+                update.numOfHoles = update.numOfHoles+1
+                update.save()
+                park = ScoreCardHoleCreator.objects.filter(
+                    park_name=newH.parkName, hole=request.POST.get('hole')).first()
 
         title = 'Hole Updated!'
         template_name = 'scorecards/card-hole-edit.html'

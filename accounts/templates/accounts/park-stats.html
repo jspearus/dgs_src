@@ -15,7 +15,13 @@
                     <tr>
                     <th class=" text-light" scope="row">Hole # </th>
                     {% for c in park_list %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    <th class=" text-light" scope="row">{{c.holeNumber}}{{c.holeSub}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th class=" text-light" scope="row">Basket</th>
+                    {% for c in park_list %}
+                    <th class=" text-light" scope="row">{{c.basket}}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -51,7 +57,13 @@
                     <tr>
                     <th class=" text-light" scope="row">Hole # </th>
                     {% for c in park_list_2 %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    <th class=" text-light" scope="row">{{c.holeNumber}}{{c.holeSub}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th class=" text-light" scope="row">Basket</th>
+                    {% for c in park_list_2 %}
+                    <th class=" text-light" scope="row">{{c.basket}}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -88,7 +100,13 @@
                     <tr>
                     <th class=" text-light" scope="row">Hole # </th>
                     {% for c in park_list_3 %}
-                    <th class=" text-light" scope="row">{{c.holeNumber}}</th>
+                    <th class=" text-light" scope="row">{{c.holeNumber}}{{c.holeSub}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th class=" text-light" scope="row">Basket</th>
+                    {% for c in park_list_3 %}
+                    <th class=" text-light" scope="row">{{c.basket}}</th>
                     {% endfor %}
                 </tr>
             </thead>
