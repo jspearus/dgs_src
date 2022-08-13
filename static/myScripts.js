@@ -1,6 +1,6 @@
 function tclick(){
-    console.log("Click Detected!!!");
+    console.log("Cards Detected!!!");
 }
 function test(){
-    console.log("test good!!!");
+    console.log("Parks Detected!!!");
 }
