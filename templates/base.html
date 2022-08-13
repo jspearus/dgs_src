@@ -15,24 +15,16 @@
     </head>
     <body class='main'>
       <!-- Main menu code-->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button
-            class="navbar-toggler ml-auto" 
-            type="button" 
-            data-toggle="collapse" 
-            data-target="#navbar"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar">
-          <div class="navbar-nav ml-auto">
+      <nav class="nav">
+        <div class="" id="navbar">
+          <div class="menu">
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link ml-auto" id="home" href="/">Home</a>
-              <a class="nav-item nav-link ml-auto" id="settings" href="/settings">Settings</a>
-              <a class="nav-item nav-link ml-auto" id="settings" href="/accounts/userstats">Stats</a>
+              <button class="menu" id="home" onclick="location.href='/'">Home</button>
+              <button class="menu" id="settings" onclick="location.href='/settings'">Settings</button>
+              <button class="menu" id="settings" onclick="location.href='/accounts/userstats'">Stats</button>
               {% else %}
-              <a class="nav-item nav-link" id="login" href="{% url 'login' %}">Login</a>
-              <a class="nav-item nav-link" id="signUp" href="/accounts/signup">Sign Up</a>
+              <a class="" id="login" href="{% url 'login' %}">Login</a>
+              <a class="" id="signUp" href="/accounts/signup">Sign Up</a>
               {% endif %}
           </div>  
         </div>   
@@ -42,7 +34,7 @@
    
         <!-- End of Flash Message Code-->
         <!-- Defines where templates will be loaded-->
-       <div class="container">
+       <div class="">
            {% block content %} 
             base page
            {% endblock %}
