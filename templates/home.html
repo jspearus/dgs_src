@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
+{% load static %} 
 
 {% block title %}Home{% endblock %}
-
 {% block content %}
 <div class='container'>
   {% if user.is_authenticated %}
@@ -33,9 +33,9 @@
             role="button" aria-disabled="true">Parks</a>
         </div>
         <br /><br />
-        <div align="right" >
+        <div align="right">
           <a href="/cards" class="btn btn-primary btn-md " 
-            role="button" aria-disabled="true">Cards</a>
+            role="button" aria-disabled="true" onclick='click()'>Cards</a>
         </div>
         <br /><br /><br />
         {% if gameStarted == "true"%} 
@@ -44,7 +44,7 @@
         </div>
         {% endif %} 
         {% if gameStarted == "false"%}
-        <div align="right" >
+        <div align="right">
           <a href="/newgame" class="btn btn-primary btn-md " role="button" aria-disabled="true">New Game</a>
         </div>
         {% endif %}
@@ -68,5 +68,10 @@
     </div>
   {% endif %}
 </div>
+<script type="text/javascript">
+  function click(){
+    console.log("Click Detected!!!");
+}
+</script>
 
 {% endblock %}
