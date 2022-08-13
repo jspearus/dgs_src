@@ -1,4 +1,4 @@
-function click(){
+function tclick(){
     console.log("Click Detected!!!");
 }
 function test(){
