@@ -29,13 +29,17 @@
         <br /><br /><br />
         <div align="right" >
           {% comment %} href="/park"  {% endcomment %}
-          <a 
-            role="button" aria-disabled="true" onclick="test()">Parks</a>
+          <button 
+            role="button" aria-disabled="true" onclick="park()">
+            Parks
+          </button>
         </div>
         <br /><br />
         <div align="right">
-          <a href="/cards"
-            role="button" aria-disabled="true" onclick="tclick()">Cards</a>
+          <button
+            role="button" aria-disabled="true" onclick="cards()">
+            Cards
+          </button>
         </div>
         <br /><br /><br />
         {% if gameStarted == "true"%} 

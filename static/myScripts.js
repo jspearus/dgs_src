@@ -1,6 +1,6 @@
-function tclick(){
-    console.log("Cards Detected!!!");
+function cards(){
+    window.location.href = "/cards"
 }
-function test(){
-    console.log("Parks Detected!!!");
+function park(){
+    window.location.href = "/park"
 }
