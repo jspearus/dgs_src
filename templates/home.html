@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% block title %}Home{% endblock %}
-
 {% block content %}
 <div class='container'>
   {% if user.is_authenticated %}
@@ -9,17 +7,18 @@
     {% if title %}
         <h1> {{title}} </h1>
     {%endif%}
-    <div class='row'>
-      <div class='col-xs-2 col-md-3'>
-        <h1 class='text-light' align='left'>Hello {{user.username}}!</h1>
+    <div >
+      <div >
+        <h1 >Hello {{user.username}}!</h1>
         {% comment %} Code here {% endcomment %}
         <!-- Creates a list of Courses  -->
-        <div class='text-light'><h3>Recent Games:</h3></div>
-        <ul class="list-group list-group-flush" id="cards">
+        <div ><h3>Recent Games:</h3></div>
+        <ul id="cards">
           {% for game in games_list %}
-              <li class="badge badge-secondary" align='left' style="width: 200px">
-                <a href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
-                <p class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</p>
+              <li align='left' style="width: 200px">
+                <a id="test1" href='/save-game/{{game.card}}/{{game.timestamp|date:"j"}}/{{game.timestamp|date:"G"}}/{{game.timestamp|time:"i"}}'>
+                  <label for="test1"class='text-light'>{{game.card}} - {{game.timestamp|date:"M, j Y- f"}}</label>
+                </a>
               </li>
               </br>
           {% endfor %}
@@ -29,13 +28,18 @@
       <div class='col-xs-2 col-md-3' align='right'>
         <br /><br /><br />
         <div align="right" >
-          <a href="/park" class="btn btn-primary btn-md " 
-            role="button" aria-disabled="true">Parks</a>
+          {% comment %} href="/park"  {% endcomment %}
+          <button 
+            role="button" aria-disabled="true" onclick="park()">
+            Parks
+          </button>
         </div>
         <br /><br />
-        <div align="right" >
-          <a href="/cards" class="btn btn-primary btn-md " 
-            role="button" aria-disabled="true">Cards</a>
+        <div align="right">
+          <button
+            role="button" aria-disabled="true" onclick="cards()">
+            Cards
+          </button>
         </div>
         <br /><br /><br />
         {% if gameStarted == "true"%} 
@@ -44,7 +48,7 @@
         </div>
         {% endif %} 
         {% if gameStarted == "false"%}
-        <div align="right" >
+        <div align="right">
           <a href="/newgame" class="btn btn-primary btn-md " role="button" aria-disabled="true">New Game</a>
         </div>
         {% endif %}
@@ -68,5 +72,4 @@
     </div>
   {% endif %}
 </div>
-
 {% endblock %}

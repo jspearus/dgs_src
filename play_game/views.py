@@ -108,6 +108,10 @@ def new_game_view(request, name):
                 user=user, game=name, hole=hole.cur_hole).first()
             update_game_view(request, curHole.game, curHole.hole,  holeId)
 
+        elif 'addHole' == request.POST.get('NavHole'):
+            print('Add Hole')
+            pass
+
         elif 'save' == request.POST.get('NavHole'):
             holes = GameCreator.objects.filter(
                 game=name, user=user)
@@ -248,7 +252,7 @@ def get_park_stats(user, course, curHole):
         holeSub=course.holeSub,
         basket=course.basket,
         tee=course.tee).first()
-    print(park_stat)
+    print(f"ParkStat: {park_stat}")
     if park_stat == None:
         park_stat = ParkStats.objects.create(
             user=user, park=course.park_name,
