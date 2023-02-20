@@ -1,14 +1,14 @@
 {% extends "base.html"%}
 {% block title %}NewGame{% endblock %}
 {% block content %}
-<form method="POST" action="">
+<form  method="POST" action="" onclick="update()">
     {% csrf_token %}
   <!-- Form for playing a new game -->
   <h3 class=" p-2 text-light" align="left">Card: {{title}} - Park: {{park}}
   </h3>
   <h4 class=" p-2 text-light" align="left">Hole: {{hole.hole}}
   </h4>
-  <div align="left" class="row justify-content-md">
+  <div align="left" class="">
     <div align="left" class=" col col-md-4 form-group bg-primary">
       <label for="holeSelect">Hole Select</label>
       <select class="form-control bg-secondary text-light" name="holeSelect" id="holeSelect">
@@ -30,9 +30,9 @@
     </div>
   </div>
   <br />
-  <div align="center" class="card bg-secondary" style="width: 25rem;">
-    <div class="card-body">
-      <h5 class=" text-light" align="center">
+  <div align="center" style="width: 25rem;">
+    <div>
+      <h5 align="center" id="testSwipe">
         Hole: {{hole.holeNumber}}{{hole.holeSub}} - Basket: {{hole.basket}} - Tee: {{hole.tee}}
       </h5>
       <br />
