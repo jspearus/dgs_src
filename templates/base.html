@@ -1,43 +1,46 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-      <link rel="shortcut icon"type="image/png" href="/static/img/apple-touch-icon.png">
-      <meta name="msapplication-TileColor" content="#da532c">
-      <meta name="theme-color" content="#ffffff">
-      <meta charset="utf-8" />
-      <link rel="stylesheet" href="{% static 'styles.css' %}"/>
-      <script src="{% static 'myScripts.js' %}"></script>
-    
-      <title>{% block title %} 
 
-        {% endblock %}</title>
-    </head>
-    <body class='main'>
-      <!-- Main menu code-->
-      <nav class="nav">
-        <div class="" id="navbar">
-          <div class="menu">
-              {% if user.is_authenticated %}
-              <button class="menu" id="home" onclick="location.href='/'">Home</button>
-              <button class="menu" id="settings" onclick="location.href='/settings'">Settings</button>
-              <button class="menu" id="settings" onclick="location.href='/accounts/userstats'">Stats</button>
-              {% else %}
-              <a class="" id="login" href="{% url 'login' %}">Login</a>
-              <a class="" id="signUp" href="/accounts/signup">Sign Up</a>
-              {% endif %}
-          </div>  
-        </div>   
-       </nav> 
-      <!-- End of Main menu code-->
-      <!-- Flash Message Code-->
-   
-        <!-- End of Flash Message Code-->
-        <!-- Defines where templates will be loaded-->
-       <div >
-           {% block content %} 
-            base page
-           {% endblock %}
-       </div>
-    </body>
+<head>
+  <link rel="shortcut icon" type="image/png" href="/static/img/apple-touch-icon.png">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <script src="{% static 'myScripts.js' %}"></script>
+
+  <title>{% block title %}
+
+    {% endblock %}</title>
+</head>
+
+<body class='main'>
+  <!-- Main menu code-->
+  <nav class="nav">
+    <div class="" id="navbar">
+      <div class="menu">
+        {% if user.is_authenticated %}
+        <button class="menu" id="home" onclick="location.href='/'">Home</button>
+        <button class="menu" id="settings" onclick="location.href='/settings'">Settings</button>
+        <button class="menu" id="settings" onclick="location.href='/accounts/userstats'">Stats</button>
+        {% else %}
+        <a class="" id="login" href="{% url 'login' %}">Login</a>
+        <a class="" id="signUp" href="/accounts/signup">Sign Up</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <!-- End of Main menu code-->
+  <!-- Flash Message Code-->
+
+  <!-- End of Flash Message Code-->
+  <!-- Defines where templates will be loaded-->
+  <div>
+    {% block content %}
+    base page
+    {% endblock %}
+  </div>
+</body>
+
 </html>
