@@ -1,0 +1,18 @@
+.main {
+    font-size: 10pt;
+    background-color:darkgray;
+}
+
+.nav {
+    height: 70px;
+    align-items: center;
+    background-color:darkslateblue;
+}
+
+.menu {
+    padding-left: 10px;
+    padding-top: 10px;
+    align-items: center;
+    font-size: 1.6rem;
+    color:black;
+}

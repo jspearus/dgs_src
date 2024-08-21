@@ -17,7 +17,7 @@ warnings.filterwarnings(
     "ignore", message="No directory at", module="whitenoise.base")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET=os.environ.get('SECRET_KEY')
+SECRET = os.environ.get('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -30,8 +30,13 @@ SECRET_KEY = os.environ.get(
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
+<<<<<<< HEAD
 # ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
+=======
+ALLOWED_HOSTS = ['192.168.1.114', '.herokuapp.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['192.168.1.114']
+>>>>>>> 52a86e12815c9162c74a565328c6b54a338ab09b
 
 # Application definition
 
@@ -47,6 +52,7 @@ INSTALLED_APPS = [
     'accounts',
     'scorecards',
     'play_game',
+    'free_roam',
 ]
 
 MIDDLEWARE = [
