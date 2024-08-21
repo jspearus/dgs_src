@@ -30,13 +30,8 @@ SECRET_KEY = os.environ.get(
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-<<<<<<< HEAD
 # ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
-=======
-ALLOWED_HOSTS = ['192.168.1.114', '.herokuapp.com', '127.0.0.1']
-# ALLOWED_HOSTS = ['192.168.1.114']
->>>>>>> 52a86e12815c9162c74a565328c6b54a338ab09b
+ALLOWED_HOSTS = ['192.168.1.23', 'dgs.jspearlab.com']
 
 # Application definition
 
